@@ -7,15 +7,16 @@ from pymongo import MongoClient
 # db_name = DrunkSuperSmashBros
 # username = CIS4930
 
-def get_db(db_name, host, port, username, password):
+def get_db(db_name, col_name, host, port, username, password):
 
  client = MongoClient(host=host,
                       port=int(port),
                       username=username,
                       password=password
                      )
- db_handle = client[db_name]
- return db_handle, client
+ db = client[db_name]
+ collection = db[col_name]
+ return db, collection, client
 
 def test(request):
     return HttpResponse("Test Backend")
