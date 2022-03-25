@@ -18,8 +18,8 @@ dbname = my_client['DrunkSuperSmashBros']
 col_name = dbname["test"]
 
 def test(request):
-    test = col_name.insert_one({"test": "testing"})
-    print(test)
+ #   test = col_name.insert_one({"test": "testing"})
+ #   print(test)
     return HttpResponse("Test Backend")
 
 # from django.shortcuts import render

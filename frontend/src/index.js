@@ -4,6 +4,9 @@ import App from './App';
 import "./style.css";
 import "./fonts/super_smash.ttf"
 
+
+export const fetch_url = 'http://127.0.0.1:8000'
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
