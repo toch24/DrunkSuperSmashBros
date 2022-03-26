@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-%(-o=&!il%ofv*=xeghs_ctmg&xg9%xq4!t!m8!a+73^slx&1v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -40,12 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backend.apps.ApiConfig',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -61,7 +65,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, '../frontend/build')
+            os.path.join(BASE_DIR, 'frontend', 'build')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,5 +135,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '../frontend/build/static')
+    os.path.join(BASE_DIR, 'frontend', 'build', 'static')
 ]
