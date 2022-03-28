@@ -1,0 +1,51 @@
+.home-img {
+    border: 5px solid rgb(52, 124, 218);
+    margin: auto;
+    padding: 2px;
+    width: 250px;
+    height: 220px;
+}
+
+.my-img {
+    width: 230px;
+    height: 200px;
+}
+
+.lobby-buttons {
+    margin-top: 100px;
+}
+
+.my-button {
+    border-radius: 15px;
+    font-size: 20px;
+    color: aliceblue;
+    background-color:rgb(52, 124, 218);
+    margin: 15px;
+}
+
+.popup {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+}
+
+.cl-popup {
+    background-color: aliceblue;
+    position: relative;
+    width: 500px;
+    height: 300px;
+}
+
+.close-button {
+    float: right;
+    margin-top: 7px;
+    margin-right: 7px;
+    border-radius: 10px;
+    color: aliceblue;
+    background-color:rgb(52, 124, 218);
+}
