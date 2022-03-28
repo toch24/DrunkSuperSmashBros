@@ -1,10 +1,10 @@
 import React from 'react';
 import "./Home.css";
 
-function CreateLobbyPopup(props){
+function LobbyPopup(props){
     return (props.trigger) ? (
         <div className='popup'>
-            <div className='cl-popup'>
+            <div className='lobby-popup'>
                 <button className='close-button' onClick={() => props.settrigger(false)}>X</button>
                 {props.children}
             </div>
@@ -14,4 +14,4 @@ function CreateLobbyPopup(props){
 }
 
 
-export default CreateLobbyPopup
+export default LobbyPopup
