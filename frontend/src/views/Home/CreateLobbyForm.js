@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { create_lobby } from '../../Utilities/FetchFunction';
 import "./Home.css";
 
 class CreateLobbyForm extends React.Component {
@@ -9,6 +10,7 @@ class CreateLobbyForm extends React.Component {
         this.state = {name: '', isSubmitted: false, newCode: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleStart = this.handleStart.bind(this);
     }
 
     handleChange(event) {
@@ -21,6 +23,20 @@ class CreateLobbyForm extends React.Component {
         this.setState({newCode: "TestCode"});
         event.preventDefault();
         console.log(this.state.name);
+
+ 
+    }
+
+    handleStart(event){
+       event.preventDefault();
+       //creating form to send data to the backend
+       let form_data = new FormData()
+
+       let keys = Object.keys(this.state)
+       keys.forEach(key => {
+           form_data.append(key, this.state[key])
+       })
+       create_lobby(form_data)        
     }
 
     render() {
@@ -34,7 +50,7 @@ class CreateLobbyForm extends React.Component {
                     <div className='show-code'>
                         {this.state.newCode}
                     </div> <br/> <br/>
-                    <button className='my-button'>Start Game</button>
+                    <button className='my-button' onClick={this.handleStart}>Start Game</button>
                 </div> 
             );
         }

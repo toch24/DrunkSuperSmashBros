@@ -25,9 +25,10 @@ SECRET_KEY = 'django-insecure-%(-o=&!il%ofv*=xeghs_ctmg&xg9%xq4!t!m8!a+73^slx&1v
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
+
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'backend.apps.ApiConfig',
     'rest_framework',
     'corsheaders',
+
     
 ]
 
