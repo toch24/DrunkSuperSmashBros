@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import "./Home.css";
+import {fetch_url} from "../../index";
+import Axios from "axios";
 
 class CreateLobbyForm extends React.Component {
 
@@ -17,8 +19,43 @@ class CreateLobbyForm extends React.Component {
     }
 
     handleSubmit(event) {
+        let formData = new FormData();
+
         this.setState({isSubmitted: true});
         this.setState({newCode: "TestCode"});
+
+        formData.append('lobbyOwnerName', this.state.name);
+        formData.append('RoomCode', this.state.newCode);
+
+        Axios.defaults.xsrfHeaderName = "X-CSRFToken";
+        Axios.defaults.xsrfCookieName = "csrftoken";
+        Axios({
+            method: "post",
+            url: `${fetch_url}/lobbyowner/`,
+            data: formData,
+            // headers: { "Content-Type": "multipart/form-data" },
+          })
+            .then(function (response) {
+              //handle success
+              console.log(response);
+            })
+            .catch(function (response) {
+              //handle error
+              console.log(response);
+            });
+
+        // Axios
+        //     .post("http://127.0.0.1:8000/lobbyowner/", {
+        //         lobbyOwnerName: this.state.name,
+        //         RoomCode: this.state.newCode,
+        //     })
+        //     .then((res) => {
+        //         console.log(res.data);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     });
+
         event.preventDefault();
         console.log(this.state.name);
     }

@@ -7,6 +7,8 @@ from pymongo import MongoClient
 from api.utils import get_db_handle
 from django.conf import settings
 import certifi
+from django.shortcuts import render
+from rest_framework.decorators import api_view
 
 connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 # Password = DrunkSuperSmashBros
@@ -21,6 +23,10 @@ def test(request):
     #test = col_name.insert_one({"test": "testing"})
     #print(test)
     return HttpResponse("Test Backend")
+
+@api_view(['GET'])
+def get_ownerinfo(request):
+    return HttpResponse({"message": "test test"})
 
 # from django.shortcuts import render
 # from django.http import HttpResponse

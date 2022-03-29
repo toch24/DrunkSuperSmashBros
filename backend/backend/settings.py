@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'backend.apps.ApiConfig',
     'rest_framework',
     'corsheaders',
-    
+    'core',
 ]
 
 
@@ -137,3 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend', 'build', 'static')
 ]
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000'
+)
