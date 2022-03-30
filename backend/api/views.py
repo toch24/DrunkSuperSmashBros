@@ -32,6 +32,7 @@ def new_lobby(request):
     return HttpResponse(200)
 
 #get character data from the unofficial smash bros ultimate api
+#reference https://smashbros-unofficial-api.vercel.app/
 @csrf_exempt
 def get_char_data(request):
     r = requests.get('https://smashbros-unofficial-api.vercel.app/api/v1/ultimate/characters')
@@ -40,15 +41,3 @@ def get_char_data(request):
         print(values['name'])
     return HttpResponse(200)
 
-# from django.shortcuts import render
-# from django.http import HttpResponse
-# import pymongo
-# from api.utils import get_db
-
-# def test(request):
-    
-#     client = pymongo.MongoClient("mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-#     db = client.DrunkSuperSmashBros
-#     col = db.UserInfo
-#     col.insert({"test1":"CIS", "test2":17})
-#     return HttpResponse("Test Backend")
