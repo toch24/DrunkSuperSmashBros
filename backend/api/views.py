@@ -2,14 +2,11 @@ from telnetlib import TLS
 from tkinter.tix import TList
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
-import pymongo
 from pymongo import MongoClient
 from api.utils import get_db_handle
 from django.conf import settings
-import certifi
 from django.views.decorators.csrf import csrf_exempt
 import requests
-import json
 
 connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 # Password = DrunkSuperSmashBros
