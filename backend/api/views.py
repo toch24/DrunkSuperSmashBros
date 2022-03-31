@@ -7,6 +7,10 @@ from api.utils import get_db_handle
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
+#for random code generation
+import string
+import random
+
 
 connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 # Password = DrunkSuperSmashBros
@@ -17,14 +21,24 @@ my_client = MongoClient(connection_string)
 dbname = my_client['DrunkSuperSmashBros']
 col_name = dbname["test"]
 
+#function to generate random 4 string code
+def code_generator():
+    chars = string.ascii_uppercase
+    return ''.join(random.choice(chars) for _ in range(5))
 
 @csrf_exempt
 def new_lobby(request):
+    #generate random code
+    code = code_generator()
+    print(code)
+
     if request.method == "POST":
         name = request.POST['name']
         code = request.POST['newCode']
         print(name)
         print(code)
+
+    
 
     return HttpResponse(200)
 
