@@ -2,7 +2,7 @@ import React from 'react';
 import LobbyPopup from './LobbyPopup';
 import CreateLobbyForm from './CreateLobbyForm';
 import { useState } from 'react';
-import test from '../../images/Test.jpg';
+import smash from '../../images/Smash_Logo.png';
 import "./Home.css";
 import JoinForm from './JoinForm';
 
@@ -12,10 +12,7 @@ function Home(){
     const [joinPopup, setJoinPopup] = useState(false);
     return(
         <>
-
-            <div className='home-img'> 
-                <img className='my-img' src={test} alt='Test'/>
-            </div>
+            <img className = "my-img" src = {smash} alt = ""></img>
 
             <div className='lobby-buttons'>
                 <button onClick={() => setLobbyPopup(true)} className='my-button'>Create lobby</button>
