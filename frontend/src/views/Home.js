@@ -2,7 +2,7 @@ import React from 'react';
 import LobbyPopup from './LobbyPopup';
 import CreateLobbyForm from './CreateLobbyForm';
 import { useState } from 'react';
-import smash from '../../images/Smash_Logo.png';
+import smash from '../images/Smash_Logo.png';
 import "./Home.css";
 import JoinForm from './JoinForm';
 

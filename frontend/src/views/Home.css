@@ -2,7 +2,7 @@
 @font-face {
     font-family: "SmashBros";
     src: local("SmashBros"),
-     url("../../fonts/super_smash.ttf") format("truetype");
+     url("../fonts/super_smash.ttf") format("truetype");
     font-weight: bold;
 }
 

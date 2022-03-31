@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { create_lobby } from '../../Utilities/FetchFunction';
+import { create_lobby } from '../Utilities/FetchFunction';
 import "./Home.css";
 
 class CreateLobbyForm extends React.Component {
