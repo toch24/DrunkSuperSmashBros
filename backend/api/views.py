@@ -7,6 +7,7 @@ from api.utils import get_db_handle
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
+import json
 #for random code generation
 import string
 import random
@@ -48,7 +49,9 @@ def new_lobby(request):
 def get_char_data(request):
     r = requests.get('https://smashbros-unofficial-api.vercel.app/api/v1/ultimate/characters')
     data = r.json()
+    characters = {}
     for values in data:
-        print(values['name'])
-    return HttpResponse(200)
+        characters[values['name']] = values['images']['portrait']
+
+    return HttpResponse(json.dumps(characters), content_type = 'application/javascript; charset=utf8')
 
