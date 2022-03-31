@@ -28,13 +28,16 @@ def new_lobby(request):
 
     return HttpResponse(200)
 
-#get character data from the unofficial smash bros ultimate api
-#reference https://smashbros-unofficial-api.vercel.app/
+
+# get character data from the unofficial smash bros ultimate api
+# reference https://smashbros-unofficial-api.vercel.app/
 @csrf_exempt
 def get_char_data(request):
     r = requests.get('https://smashbros-unofficial-api.vercel.app/api/v1/ultimate/characters')
     data = r.json()
-    for values in data:
-        print(values['name'])
-    return HttpResponse(200)
-
+    try:
+        for values in data:
+            print(values['name'])
+        return HttpResponse(200)
+    except:
+        return HttpResponse(201)
