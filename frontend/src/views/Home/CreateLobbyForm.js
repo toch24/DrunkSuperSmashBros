@@ -20,7 +20,7 @@ class CreateLobbyForm extends React.Component {
 
     handleSubmit(event) {
         this.setState({isSubmitted: true});
-        this.setState({newCode: "TestCode"});
+        this.setState({newCode: "TestCode"}); // TODO: GET request to get a new random generated code from backend
         event.preventDefault();
         console.log(this.state.name);
 

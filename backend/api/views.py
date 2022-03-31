@@ -8,6 +8,8 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
 
+
+
 connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 # Password = DrunkSuperSmashBros
 # db_name = DrunkSuperSmashBros
@@ -25,7 +27,6 @@ def new_lobby(request):
         code = request.POST['newCode']
         print(name)
         print(code)
-
     return HttpResponse(200)
 
 
