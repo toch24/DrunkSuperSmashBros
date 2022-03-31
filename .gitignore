@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Alberto stuff
+# rm -r ~/DrunkSuperSmashBrosVENV/*
+# cp -r venv/. ~/DrunkSuperSmashBrosVENV/
+
+
 # C extensions
 *.so
 

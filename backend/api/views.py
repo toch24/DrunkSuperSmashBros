@@ -9,7 +9,6 @@ from django.conf import settings
 import certifi
 from django.views.decorators.csrf import csrf_exempt
 
-
 connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 # Password = DrunkSuperSmashBros
 # db_name = DrunkSuperSmashBros
@@ -18,6 +17,7 @@ connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbr
 my_client = MongoClient(connection_string)
 dbname = my_client['DrunkSuperSmashBros']
 col_name = dbname["test"]
+
 
 @csrf_exempt
 def new_lobby(request):
@@ -35,7 +35,7 @@ def new_lobby(request):
 # from api.utils import get_db
 
 # def test(request):
-    
+
 #     client = pymongo.MongoClient("mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 #     db = client.DrunkSuperSmashBros
 #     col = db.UserInfo
