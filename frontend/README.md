@@ -69,6 +69,23 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+### BACKEND ###
+Consider using a venv to store the requirements
+
+`$ python -m venv venv`
+
+`$ source venv/bin/activate`
+
+`$ pip install -r requirements.txt`
+
+
+### FRONTEND ###
+If you are having issues running the front-end consider reinstalling npm and nodejs from scratch
+https://stackoverflow.com/questions/70390777/error-in-module-createrequire-is-not-a-function
+"0
+
+Try completely updating the newest, stable version of both nodejs and npm"
+
 
 ### DEPENDENCIES 
 react-router-dom

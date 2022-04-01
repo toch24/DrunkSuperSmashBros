@@ -20,5 +20,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# Alberto, checking for a succesful Commit-Push on Main

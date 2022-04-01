@@ -25,8 +25,8 @@ function CharSelect(){
         <div className="scroller">
         { Object.entries(characters).map(([key, val]) =>
           <div className="chars">
-           <a href="#"> <img name={key} onClick ={handleClick}className='char-image' src={val} alt=''/> </a>
-          <p><a className = "item" name={key} onClick ={handleClick} href="#">{key}</a></p>
+           <a href="#"> <img name={key} key={key} onClick ={handleClick}className='char-image' src={val} alt=''/> </a>
+          <p><a className = "item" name={key} key={key} onClick ={handleClick} href="#">{key}</a></p>
   
           </div>
          )}
