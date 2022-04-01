@@ -54,5 +54,5 @@ def get_char_data(request):
         for values in data:
             characters[values['name']] = values['images']['portrait']
 
-    return HttpResponse(json.dumps(characters), content_type = 'application/javascript; charset=utf8')
+    return HttpResponse(json.dumps(characters))
 

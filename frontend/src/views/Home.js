@@ -12,8 +12,7 @@ function Home(){
     const [joinPopup, setJoinPopup] = useState(false);
     return(
         <>
-        <h1 className='header'>DRUNK SUPER SMASH BROS</h1>
-        <div className="card">
+
             <img className='my-img' src={smash} alt=''/>
         
 
@@ -29,7 +28,7 @@ function Home(){
             <LobbyPopup trigger={joinPopup} settrigger={setJoinPopup}>
                 <JoinForm/>
             </LobbyPopup>
-        </div>
+    
         </>
 
     )

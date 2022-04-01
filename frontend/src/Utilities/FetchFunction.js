@@ -17,6 +17,6 @@ export async function create_lobby(body) {
 
 export async function get_char_data(){
     const response = await Axios.get(`${fetch_url}/get_char_data`)
-
+    
     return response.data
 }
