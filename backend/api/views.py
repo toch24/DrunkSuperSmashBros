@@ -47,11 +47,12 @@ def new_lobby(request):
 #reference https://smashbros-unofficial-api.vercel.app/
 @csrf_exempt
 def get_char_data(request):
-    r = requests.get('https://smashbros-unofficial-api.vercel.app/api/v1/ultimate/characters')
-    data = r.json()
-    characters = {}
-    for values in data:
-        characters[values['name']] = values['images']['portrait']
+    if request.method == 'GET':
+        r = requests.get('https://smashbros-unofficial-api.vercel.app/api/v1/ultimate/characters')
+        data = r.json()
+        characters = {}
+        for values in data:
+            characters[values['name']] = values['images']['portrait']
 
     return HttpResponse(json.dumps(characters), content_type = 'application/javascript; charset=utf8')
 
