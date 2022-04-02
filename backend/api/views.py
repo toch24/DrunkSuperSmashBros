@@ -22,16 +22,9 @@ my_client = MongoClient(connection_string)
 dbname = my_client['DrunkSuperSmashBros']
 col_name = dbname["test"]
 
-#function to generate random 4 string code
-def code_generator():
-    chars = string.ascii_uppercase
-    return ''.join(random.choice(chars) for _ in range(5))
 
 @csrf_exempt
 def new_lobby(request):
-    #generate random code
-    code = code_generator()
-    print(code)
 
     if request.method == "POST":
         name = request.POST['name']

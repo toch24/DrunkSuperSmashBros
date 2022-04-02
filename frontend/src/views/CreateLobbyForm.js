@@ -22,7 +22,8 @@ class CreateLobbyForm extends React.Component {
         this.setState({isSubmitted: true});
         this.setState({newCode: "TestCode"});
         event.preventDefault();
-        console.log(this.state.name);
+        //saving name in local storage for future use
+        localStorage.setItem('name', this.state.name)
 
         //establishing connection to a new websocket, the url used most likely has to change when publishing the website.
         let url = `ws://127.0.0.1:8080/ws/socket/`
