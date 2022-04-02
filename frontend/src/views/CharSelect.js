@@ -23,6 +23,7 @@ function CharSelect(){
     return(
         <div className = "char-list">
         <div className="scroller">
+        <h2>SELECT A CHARACTER:</h2>
         { Object.entries(characters).map(([key, val]) =>
           <div className="chars">
            <a href="#"> <img name={key} key={key} onClick ={handleClick}className='char-image' src={val} alt=''/> </a>
@@ -32,12 +33,9 @@ function CharSelect(){
          )}
         </div>
         </div>
+
     )
 
 }
 
 export default CharSelect
-
-const Items = styled.div`
-  flex: ${props => props.flex }
-`

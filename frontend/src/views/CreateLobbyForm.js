@@ -32,7 +32,7 @@ class CreateLobbyForm extends React.Component {
 
         socket.onmessage = function(e){
             let data = JSON.parse(e.data)
-            console.log(data)
+            console.log(data.roomCode)
             //need to set newCode value with data here
             //also need to redirect the client to a room page
         }
