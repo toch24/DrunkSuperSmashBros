@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import { get_char_data } from '../Utilities/FetchFunction';
-import styled from 'styled-components';
 
 
 
