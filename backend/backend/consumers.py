@@ -3,10 +3,11 @@ from api import models
 from channels.generic.websocket import WebsocketConsumer
 
 class LobbyConsumer(WebsocketConsumer):
+
     def connect(self):
         super().connect()
         room = models.Room()
-
+        print(room.roomCode)
         # Sending the generated code to identify room.
         self.send(text_data=json.dumps({
             'roomCode': room.roomCode
@@ -19,7 +20,7 @@ class LobbyConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
+
         self.send(text_data=json.dumps({
             'message': message
         }))
-

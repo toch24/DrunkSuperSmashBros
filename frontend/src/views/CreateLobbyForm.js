@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { create_lobby } from '../Utilities/FetchFunction';
+import { create_lobby, get_code } from '../Utilities/FetchFunction';
 import "./Home.css";
+import {Navigate} from 'react-router-dom'
+import { browserHistory } from 'react-router'
 
 class CreateLobbyForm extends React.Component {
 
@@ -19,29 +21,30 @@ class CreateLobbyForm extends React.Component {
     }
 
     handleSubmit(event) {
-        this.setState({isSubmitted: true});
+        
         this.setState({newCode: "TestCode"});
         event.preventDefault();
         //saving name in local storage for future use
         localStorage.setItem('name', this.state.name)
 
         //establishing connection to a new websocket, the url used most likely has to change when publishing the website.
-        let url = `ws://127.0.0.1:8080/ws/socket/`
+        let response = get_code()
 
-        const socket = new WebSocket(url)
-
-        socket.onmessage = function(e){
-            let data = JSON.parse(e.data)
-            console.log(data.roomCode)
-            //need to set newCode value with data here
-            //also need to redirect the client to a room page
+        if(response === 200){
+            this.setState({isSubmitted: true})
         }
+        else{
+            this.setState({isSubmitted: false})
+        }
+        
+        
     }
 
     handleStart(event){
        event.preventDefault();
        //creating form to send data to the backend
        let form_data = new FormData()
+       
 
        let keys = Object.keys(this.state)
        keys.forEach(key => {
@@ -53,17 +56,14 @@ class CreateLobbyForm extends React.Component {
     render() {
         const isSubmitted = this.state.isSubmitted;
         let returnContent;
-
+        
         if (isSubmitted) {
             returnContent = (
-                <div className='cl-form'>
-                    Your Code is: <br/> <br/> <br/>
-                    <div className='show-code'>
-                        {this.state.newCode}
-                    </div> <br/> <br/>
-                    <button className='my-button' onClick={this.handleStart}>Start Game</button>
-                </div> 
-            );
+                <>
+                <h1> {localStorage.getItem('code')} </h1>
+                {localStorage.removeItem('code')}
+                </>
+            )
         }
         else {
             returnContent = (

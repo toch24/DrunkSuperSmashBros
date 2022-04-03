@@ -3,6 +3,7 @@ import "./style.css";
 import Home from './views/Home';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import CharSelect from "./views/CharSelect";
+import Lobby from './views/Lobby';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Router>
         <Routes>
           <Route path = '/' element={<Home/>} />
+          <Route path="/lobby" element={(props) => <Lobby {...props}/>}/>
           <Route path = '/selectchars' element={<CharSelect/>} />
         </Routes>
       </Router>
