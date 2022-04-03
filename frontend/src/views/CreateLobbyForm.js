@@ -1,19 +1,20 @@
-import React from 'react';
-import { useState } from 'react';
-import { create_lobby, get_code } from '../Utilities/FetchFunction';
+import React, {useEffect, useState} from 'react';
+import { create_lobby,} from '../Utilities/FetchFunction';
 import "./Home.css";
-import {Navigate} from 'react-router-dom'
-import { browserHistory } from 'react-router'
+import loading from "../images/808.gif"
 
 class CreateLobbyForm extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {name: '', isSubmitted: false, newCode: ''};
+        this.state = {name: '', isSubmitted: false, newCode: '', players: []}
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleStart = this.handleStart.bind(this);
+        this.handleIn = this.handleIn.bind(this);
+
+
     }
+    
 
     handleChange(event) {
         console.log("change occur");
@@ -21,14 +22,12 @@ class CreateLobbyForm extends React.Component {
     }
 
     handleSubmit(event) {
-        
-        this.setState({newCode: "TestCode"});
         event.preventDefault();
         //saving name in local storage for future use
         localStorage.setItem('name', this.state.name)
-
+        
         //establishing connection to a new websocket, the url used most likely has to change when publishing the website.
-        let response = get_code()
+        let response = this.get_code()
 
         if(response === 200){
             this.setState({isSubmitted: true})
@@ -36,33 +35,69 @@ class CreateLobbyForm extends React.Component {
         else{
             this.setState({isSubmitted: false})
         }
-        
-        
-    }
 
-    handleStart(event){
-       event.preventDefault();
-       //creating form to send data to the backend
+        let p = this.state.players;
+        p.push(this.state.name)
+        console.log(this.state.players)
+
+        //creating form to send data to the backend
        let form_data = new FormData()
-       
-
        let keys = Object.keys(this.state)
        keys.forEach(key => {
            form_data.append(key, this.state[key])
        })
-       create_lobby(form_data)        
+       create_lobby(form_data) 
+        
     }
 
+    handleIn = (e) => {
+        e.preventDefault();
+        window.location.assign("/selectchars")
+      }
+
+    get_code(){
+        const socket = new WebSocket(`ws://127.0.0.1:8080/ws/socket/`)
+        localStorage.removeItem('code')
+        console.log(localStorage.getItem('code'))
+        socket.onmessage = (e) => {
+                let data = JSON.parse(e.data)
+                localStorage.setItem('code', data['message'])
+                this.setState(...this.state.newCode, {newCode: data['message']})
+                console.log(data)
+
+        }
+   
+        return 200
+    }
+
+
+    
     render() {
         const isSubmitted = this.state.isSubmitted;
         let returnContent;
+       
         
         if (isSubmitted) {
+ 
             returnContent = (
-                <>
-                <h1> {localStorage.getItem('code')} </h1>
-                {localStorage.removeItem('code')}
-                </>
+                <div className = 'lobby'>
+       
+                <h2>GAME CODE: {this.state.newCode}</h2>
+                <div className = 'joined-players'>
+                    <p>Current joined players (max 8):</p>
+                    { this.state.players.map((val) =>
+                    <div className="">
+                        <p key={val}>{val}</p>
+                    </div>
+                    )}
+                </div>
+                <div>
+                    <img className = 'loading' src={loading} alt=" " />
+                </div>
+                
+                <button className='everyone' type="submit" onClick={this.handleIn}> Everyone's In!</button>
+                
+                </div>
             )
         }
         else {

@@ -21,25 +21,22 @@ export async function get_char_data(){
     return response.data
 }
 
+export async function get_room_code(code){
+    
+    return await code
+}
+
 export function get_code(){
     const socket = new WebSocket(`ws://127.0.0.1:8080/ws/socket/`)
 
-    socket.addEventListener = function(e){
-        setTimeout(
-            function () {
-                if (socket.readyState === 1) {
-                    console.log("Connection is made") 
-                    let data =  JSON.parse(e.data)
-                    localStorage.setItem('code', data.roomCode)
-                    
-                } else {
-                    console.log("wait for connection...")
-                    setTimeout();
-                }
-    
-            }, 5); // wait 5 milisecond for the connection...
-    }
 
+    socket.onmessage = function(e){
+        let data = JSON.parse(e.data)
+        get_room_code(data['message'])
+        console.log(data)
+        //need to set newCode value with data here
+        //also need to redirect the client to a room page
+    }
 
     return 200
 }

@@ -47,8 +47,8 @@
     background-color: aliceblue;
     position: relative;
     border-radius: 20px;
-    width: 500px;
-    height: 300px;
+    width: 45vh;
+    height: 50vh;
 }
 
 .close-button {
@@ -139,4 +139,15 @@
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
+  }
+
+  .joined-players{
+    height: 35vh;
+  }
+  
+  .loading{
+      width:10vh;
+      margin-bottom: 1vh;
+      mix-blend-mode: multiply;
+ 
   }
