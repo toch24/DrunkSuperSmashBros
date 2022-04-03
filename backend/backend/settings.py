@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'backend.apps.ApiConfig',
     'rest_framework',
     'corsheaders',
-
-    
 ]
 
 
@@ -83,16 +81,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+# aDxMjy00iwG9fmlt
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+# cis4930
+# drunksupersmashbros
+# 34.133.1.219
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'drunksupersmashbros',
+       'USER': 'cis4930',
+       'PASSWORD': 'drunksupersmashbros',
+       'HOST': '34.133.1.219',
+       'PORT': '5432',
+   }
+}
 
 
 # Password validation

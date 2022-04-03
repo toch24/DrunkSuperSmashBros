@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 
-# mongodb+srv://CIS4930:<password>@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+# mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 # Password = DrunkSuperSmashBros
 # db_name = DrunkSuperSmashBros
 # username = CIS4930

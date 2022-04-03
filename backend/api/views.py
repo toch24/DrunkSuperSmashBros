@@ -3,7 +3,7 @@ from tkinter.tix import TList
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from pymongo import MongoClient
-from api.utils import get_db_handle
+# from .. import api
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
