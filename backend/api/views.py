@@ -3,7 +3,7 @@ from tkinter.tix import TList
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from pymongo import MongoClient
-from api.utils import get_db_handle
+# from .. import api
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
@@ -11,6 +11,8 @@ import json
 #for random code generation
 import string
 import random
+
+
 
 
 connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
@@ -32,7 +34,7 @@ def new_lobby(request):
         print(name)
         print(code)
 
-    
+
 
     return HttpResponse(200)
 

@@ -78,6 +78,8 @@ Consider using a venv to store the requirements
 
 `$ pip install -r requirements.txt`
 
+`$ python manage.py runserver 8080`
+
 
 ### FRONTEND ###
 If you are having issues running the front-end consider reinstalling npm and nodejs from scratch
@@ -86,6 +88,9 @@ https://stackoverflow.com/questions/70390777/error-in-module-createrequire-is-no
 
 Try completely updating the newest, stable version of both nodejs and npm"
 
+`$ cd frontend`
+
+`$ npm start`
 
 ### DEPENDENCIES 
 react-router-dom

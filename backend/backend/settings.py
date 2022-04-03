@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'backend.apps.ApiConfig',
     'rest_framework',
     'corsheaders',
-    'channels',
 
     
 ]
@@ -101,20 +100,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+# aDxMjy00iwG9fmlt
 
-# Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+# cis4930
+# drunksupersmashbros
+# 34.133.1.219
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': './sqlite.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'drunksupersmashbros',
+       'USER': 'cis4930',
+       'PASSWORD': 'drunksupersmashbros',
+       'HOST': '34.133.1.219',
+       'PORT': '5432',
+   }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

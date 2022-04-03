@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # Alberto stuff
-# rm -r ~/DrunkSuperSmashBrosVENV/*
+# sudo rm -rf ~/DrunkSuperSmashBrosVENV/*
 # cp -r venv/. ~/DrunkSuperSmashBrosVENV/
 
 
