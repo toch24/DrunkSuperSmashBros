@@ -21,7 +21,7 @@ class CreateLobbyForm extends React.Component {
     }
 
     handleSubmit(event) {
-        
+
         this.setState({newCode: "TestCode"});
         event.preventDefault();
         //saving name in local storage for future use
@@ -36,15 +36,15 @@ class CreateLobbyForm extends React.Component {
         else{
             this.setState({isSubmitted: false})
         }
-        
-        
+
+
     }
 
     handleStart(event){
        event.preventDefault();
        //creating form to send data to the backend
        let form_data = new FormData()
-       
+
 
        let keys = Object.keys(this.state)
        keys.forEach(key => {
@@ -56,7 +56,7 @@ class CreateLobbyForm extends React.Component {
     render() {
         const isSubmitted = this.state.isSubmitted;
         let returnContent;
-        
+
         if (isSubmitted) {
             returnContent = (
                 <>
