@@ -2,7 +2,7 @@
 @font-face {
     font-family: "SmashBros";
     src: local("SmashBros"),
-     url("../../fonts/super_smash.ttf") format("truetype");
+     url("../fonts/super_smash.ttf") format("truetype");
     font-weight: bold;
 }
 
@@ -16,8 +16,8 @@
 }
 
 .my-img {
-    width: 230px;
-    height: 200px;
+    width: 100%;
+    height: 50%;
 }
 
 .lobby-buttons {
@@ -95,3 +95,48 @@
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
     font-size: x-large;
 }
+
+.char-list {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+   
+  }
+  
+  .scroller {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+
+  }
+  
+  .item {
+    text-decoration: none;
+    color: black;
+  }
+
+  .char-image{
+      height: 50%;
+      width: 50%;
+  }
+
+/* width */
+ ::-webkit-scrollbar {
+    width: 0.5vh;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f100; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

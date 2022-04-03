@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { create_lobby } from '../../Utilities/FetchFunction';
+import { create_lobby, get_code } from '../Utilities/FetchFunction';
 import "./Home.css";
+import {Navigate} from 'react-router-dom'
+import { browserHistory } from 'react-router'
 
 class CreateLobbyForm extends React.Component {
 
@@ -19,18 +21,30 @@ class CreateLobbyForm extends React.Component {
     }
 
     handleSubmit(event) {
-        this.setState({isSubmitted: true});
-        this.setState({newCode: "TestCode"}); // TODO: GET request to get a new random generated code from backend
-        event.preventDefault();
-        console.log(this.state.name);
 
- 
+        this.setState({newCode: "TestCode"});
+        event.preventDefault();
+        //saving name in local storage for future use
+        localStorage.setItem('name', this.state.name)
+
+        //establishing connection to a new websocket, the url used most likely has to change when publishing the website.
+        let response = get_code()
+
+        if(response === 200){
+            this.setState({isSubmitted: true})
+        }
+        else{
+            this.setState({isSubmitted: false})
+        }
+
+
     }
 
     handleStart(event){
        event.preventDefault();
        //creating form to send data to the backend
        let form_data = new FormData()
+
 
        let keys = Object.keys(this.state)
        keys.forEach(key => {
@@ -45,14 +59,11 @@ class CreateLobbyForm extends React.Component {
 
         if (isSubmitted) {
             returnContent = (
-                <div className='cl-form'>
-                    Your Code is: <br/> <br/> <br/>
-                    <div className='show-code'>
-                        {this.state.newCode}
-                    </div> <br/> <br/>
-                    <button className='my-button' onClick={this.handleStart}>Start Game</button>
-                </div> 
-            );
+                <>
+                <h1> {localStorage.getItem('code')} </h1>
+                {localStorage.removeItem('code')}
+                </>
+            )
         }
         else {
             returnContent = (

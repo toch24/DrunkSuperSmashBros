@@ -7,6 +7,11 @@ from pymongo import MongoClient
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
+import json
+#for random code generation
+import string
+import random
+
 
 
 
@@ -22,23 +27,27 @@ col_name = dbname["test"]
 
 @csrf_exempt
 def new_lobby(request):
+
     if request.method == "POST":
         name = request.POST['name']
         code = request.POST['newCode']
         print(name)
         print(code)
+
+
+
     return HttpResponse(200)
 
-
-# get character data from the unofficial smash bros ultimate api
-# reference https://smashbros-unofficial-api.vercel.app/
+#get character data from the unofficial smash bros ultimate api
+#reference https://smashbros-unofficial-api.vercel.app/
 @csrf_exempt
 def get_char_data(request):
-    r = requests.get('https://smashbros-unofficial-api.vercel.app/api/v1/ultimate/characters')
-    data = r.json()
-    try:
+    if request.method == 'GET':
+        r = requests.get('https://smashbros-unofficial-api.vercel.app/api/v1/ultimate/characters')
+        data = r.json()
+        characters = {}
         for values in data:
-            print(values['name'])
-        return HttpResponse(200)
-    except:
-        return HttpResponse(201)
+            characters[values['name']] = values['images']['portrait']
+
+    return HttpResponse(json.dumps(characters))
+

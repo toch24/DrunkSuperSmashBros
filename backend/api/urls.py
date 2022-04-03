@@ -1,7 +1,6 @@
 from django.urls import path
-from . import views
-
+from .views import get_char_data, new_lobby
 urlpatterns = [
-    path('new_lobby/', views.new_lobby, name='new_lobby'),
-    path('get_data/', views.get_char_data, name='get_data')
+    path('new_lobby/', new_lobby),
+    path('get_char_data', get_char_data)
 ]

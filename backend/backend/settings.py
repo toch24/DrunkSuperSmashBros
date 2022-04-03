@@ -43,9 +43,28 @@ INSTALLED_APPS = [
     'backend.apps.ApiConfig',
     'rest_framework',
     'corsheaders',
+
+    
 ]
 
+ASGI_APPLICATION = 'backend.asgi.application'
 
+"""
+THIS IS THE PRODUCTION VERSION OF CHANNELS, PLEASE DON'T USE THE InMemory CHANNEL_LAYER BELOW IN A WEBSITE PUBLISH
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}"""
+
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
