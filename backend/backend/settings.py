@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'backend.apps.ApiConfig',
     'rest_framework',
     'corsheaders',
+    'channels'
 
     
 ]
