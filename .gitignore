@@ -7,6 +7,11 @@ __pycache__/
 # sudo rm -rf ~/DrunkSuperSmashBrosVENV/*
 # cp -r venv/. ~/DrunkSuperSmashBrosVENV/
 
+# If error
+# System has not been booted with systemd as init system (PID 1). Can't operate.
+# Failed to connect to bus: Host is down
+# Then run on a separate terminal and then run normally:
+# $ sudo dockerd
 
 
 # C extensions
@@ -137,3 +142,4 @@ dmypy.json
 # Dependency directories
 node_modules/
 jspm_packages/
+/backend/get-docker.sh
