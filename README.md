@@ -92,7 +92,16 @@ Try completely updating the newest, stable version of both nodejs and npm"
 
 `$ npm start`
 
-### DEPENDENCIES 
+### DEPENDENCIES  ###
 react-router-dom
 pymongo
 axios
+
+
+### DOCKER
+https://docs.docker.com/get-docker/
+https://docs.docker.com/compose/
+
+https://blog.devgenius.io/dockerizing-django-application-gunicorn-and-nginx-5a74b250198f
+https://blog.devgenius.io/deploying-django-application-on-aws-ec2-and-docker-10a1f7c29573
+https://medium.com/@gagansh7171/dockerize-your-django-and-react-app-68a7b73ab6e9
