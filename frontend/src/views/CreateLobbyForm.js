@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import { create_lobby,} from '../Utilities/FetchFunction';
+import { Redirect } from 'react-router-dom';
+import { post_data,} from '../Utilities/FetchFunction';
 import "./Home.css";
 import loading from "../images/808.gif"
 
@@ -46,7 +47,7 @@ class CreateLobbyForm extends React.Component {
        keys.forEach(key => {
            form_data.append(key, this.state[key])
        })
-       create_lobby(form_data) 
+       post_data(form_data, "new_lobby") 
         
     }
 

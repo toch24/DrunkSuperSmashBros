@@ -3,10 +3,10 @@ import {fetch_url} from "../index";
 
 
 
-export async function create_lobby(body) {
+export async function post_data(body, route) {
     Axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     Axios.defaults.xsrfCookieName = "csrftoken";
-    const response = await Axios.post(`${fetch_url}/new_lobby/`, body, {
+    const response = await Axios.post(`${fetch_url}/${route}/`, body, {
         headers:{
             'Content-Type': 'multipart/form-data'
         }

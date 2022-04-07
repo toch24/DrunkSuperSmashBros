@@ -3,7 +3,7 @@ import "./style.css";
 import Home from './views/Home';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import CharSelect from "./views/CharSelect";
-
+import Betting from "./views/Betting";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Routes>
           <Route path = '/' element={<Home/>} />
           <Route path = '/selectchars' element={<CharSelect/>} />
+          <Route path = '/betting' element={<Betting/>} />
         </Routes>
       </Router>
       </div>
