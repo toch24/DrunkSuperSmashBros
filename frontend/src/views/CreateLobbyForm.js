@@ -57,14 +57,18 @@ class CreateLobbyForm extends React.Component {
       }
 
     get_code(){
-        const socket = new WebSocket(`ws://127.0.0.1:8080/ws/socket/`)
+        console.log(this.state.name);
+
+        //pass the username
+        let url = `ws://127.0.0.1:8080/ws/socket/new_lobby/?username=${this.state.name}`
+        const socket = new WebSocket(url)
         localStorage.removeItem('code')
         console.log(localStorage.getItem('code'))
         socket.onmessage = (e) => {
                 let data = JSON.parse(e.data)
+                console.log(data)
                 localStorage.setItem('code', data['message'])
                 this.setState(...this.state.newCode, {newCode: data['message']})
-                console.log(data)
 
         }
    

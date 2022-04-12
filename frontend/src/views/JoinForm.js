@@ -23,7 +23,8 @@ class JoinForm extends React.Component {
         console.log(this.state.name);
         console.log(this.state.code);
 
-        let url = `ws://127.0.0.1:8080/ws/socket/${this.state.code}`
+        //pass the roomcode and username
+        let url = `ws://127.0.0.1:8080/ws/socket/join_lobby/?room_code=${this.state.code};username=${this.state.name}`
 
         const socket = new WebSocket(url)
 
