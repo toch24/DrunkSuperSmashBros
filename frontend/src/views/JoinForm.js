@@ -22,6 +22,7 @@ class JoinForm extends React.Component {
         event.preventDefault();
         console.log(this.state.name);
         console.log(this.state.code);
+        localStorage.setItem('name2', this.state.name);
 
         //pass the roomcode and username
         let url = `ws://127.0.0.1:8080/ws/socket/join_lobby/?room_code=${this.state.code};username=${this.state.name}`

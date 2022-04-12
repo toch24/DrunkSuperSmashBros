@@ -49,6 +49,8 @@ class players(models.Model):
     player_id = models.BigAutoField(primary_key=True)
     room_code = models.ForeignKey(to=lobbies, on_delete=models.CASCADE)
     player_name = models.CharField(max_length=20)
+    is_playing = models.BooleanField(default=False)
+    bet_for = models.CharField(null = True, max_length=20)
 
 
 

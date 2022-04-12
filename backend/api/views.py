@@ -2,7 +2,7 @@ from telnetlib import TLS
 from tkinter.tix import TList
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
-from pymongo import MongoClient
+# from pymongo import MongoClient
 # from .. import api
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -20,9 +20,9 @@ connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbr
 # db_name = DrunkSuperSmashBros
 # username = CIS4930
 
-my_client = MongoClient(connection_string)
-dbname = my_client['DrunkSuperSmashBros']
-col_name = dbname["test"]
+# my_client = MongoClient(connection_string)
+# dbname = my_client['DrunkSuperSmashBros']
+# col_name = dbname["test"]
 
 
 @csrf_exempt
@@ -35,6 +35,19 @@ def new_lobby(request):
         print(code)
 
 
+
+    return HttpResponse(200)
+
+@csrf_exempt
+def betting(request):
+
+    if request.method == "POST":
+        betFor = request.POST['betFor']
+        bet = request.POST['bet']
+        name = request.POST['name']
+        print(betFor)
+        print(bet)
+        print(name)
 
     return HttpResponse(200)
 
