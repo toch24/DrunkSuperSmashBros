@@ -7,7 +7,7 @@ from django.db import models
 def roomGuid():
     while True:
         roomCode = ''.join(random.choices(string.ascii_uppercase, k=5))
-        if Room.objects.filter(roomCode = roomCode).count() == 0:
+        if lobbies.objects.filter(room_code = roomCode).count() == 0:
             break
     return roomCode
 
@@ -32,12 +32,6 @@ def roomGuid():
 #   3. $ python manage.py migrate
 #  End with commiting the migration files
 
-
-class Room(models.Model):
-    roomCode = models.CharField(max_length=5, default=roomGuid, unique=True)
-    roomHost = models.CharField(max_length=5, default="none", unique=True)
-    numPlayers = models.IntegerField(null = False, default=1)
-
 class challenges(models.Model):
     challenge_id = models.BigAutoField(primary_key=True)
     challenge_str = models.CharField(max_length=150)
@@ -45,8 +39,9 @@ class challenges(models.Model):
 
 class lobbies(models.Model):
     room_id = models.BigAutoField(primary_key=True)
-    room_code = models.CharField(max_length=5)
+    room_code = models.CharField(max_length=5, default=roomGuid, unique=True)
     room_host = models.CharField(max_length=20)
+    numPlayers = models.IntegerField(null = False, default=1)
 
 
 class players(models.Model):
