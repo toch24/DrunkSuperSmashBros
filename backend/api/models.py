@@ -1,5 +1,6 @@
 import string, random
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -33,8 +34,8 @@ def roomGuid():
 #  End with commiting the migration files
 
 class challenges(models.Model):
-    challenge_id = models.BigAutoField(primary_key=True)
-    challenge_str = models.CharField(max_length=150)
+    challenge_id = models.IntegerField(primary_key=True)
+    challenges = ArrayField(models.CharField(max_length=500), null=True)
 
 
 class lobbies(models.Model):
