@@ -68,9 +68,16 @@ class CreateLobbyForm extends React.Component {
         socket.onmessage = (e) => {
                 let data = JSON.parse(e.data)
                 console.log(data)
-                localStorage.setItem('code', data['message'])
-                this.setState(...this.state.newCode, {newCode: data['message']})
+                if(data['event_type'] === 'lobby_code'){
+                    localStorage.setItem('code', data['message'])
+                    this.setState(...this.state.newCode, {newCode: data['message']})
+                }
+                else if(data['event_type'] === 'player_joined'){
+                    console.log(data['message'])
+                    let joined_players = JSON.parse(data['message'])
+                    this.setState({players: joined_players})
 
+                }
         }
    
         return 200

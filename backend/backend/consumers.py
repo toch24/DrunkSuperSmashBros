@@ -126,6 +126,7 @@ class VisitorLobbyConsumer(WebsocketConsumer):
                 'type':'room_message',
                 'event_type':'player_joined',
                 'message':json.dumps([player.player_name for player in self.roomPlayers])
+              
             }
         )
 
