@@ -28,7 +28,6 @@ class CreateLobbyForm extends React.Component {
         event.preventDefault();
         //saving name in local storage for future use
         localStorage.setItem('name', this.state.name)
-        localStorage.setItem('name2', this.state.name)
         
         //establishing connection to a new websocket, the url used most likely has to change when publishing the website.
         let response = this.get_code()
@@ -55,7 +54,6 @@ class CreateLobbyForm extends React.Component {
     }
 
     handleIn = (e) => {
-        e.preventDefault();
         window.location.assign("/afterlobby")
 
       }
@@ -66,13 +64,12 @@ class CreateLobbyForm extends React.Component {
         //pass the username
         let url = `ws://127.0.0.1:8080/ws/socket/new_lobby/?username=${this.state.name}`
         const socket = new WebSocket(url)
-        localStorage.removeItem('code')
-        console.log(localStorage.getItem('code'))
         socket.onmessage = (e) => {
                 let data = JSON.parse(e.data)
                 console.log(data)
                 if(data['event_type'] === 'lobby_code'){
                     localStorage.setItem('code', data['message'])
+                    localStorage.setItem('host', true)
                     this.setState(...this.state.newCode, {newCode: data['message']})
                 }
                 else if(data['event_type'] === 'player_joined'){

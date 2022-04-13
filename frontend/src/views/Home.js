@@ -12,6 +12,7 @@ function Home(){
     const [joinPopup, setJoinPopup] = useState(false);
     localStorage.removeItem('code')
     localStorage.removeItem('name')
+    localStorage.removeItem('host')
     
 
     return(
