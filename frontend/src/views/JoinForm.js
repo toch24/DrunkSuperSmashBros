@@ -33,6 +33,7 @@ class JoinForm extends React.Component {
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
             if(data['event_type'] === 'player_joined'){
+                localStorage.setItem('code', this.state.code)
                 let joined_players = JSON.parse(data['message'])
                 this.setState({players: joined_players})
                 this.setState({isSubmited: true})

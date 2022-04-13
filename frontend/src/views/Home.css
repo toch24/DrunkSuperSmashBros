@@ -170,3 +170,28 @@ transition: all 0.2s;
   .everyone:hover {
     background-color:#4095c6;
   }
+
+  .end{
+    display:inline-block;
+   padding:0.3em 1.2em;
+   margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'SmashBros';
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:red;
+  text-align:center;
+  transition: all 0.2s;
+    }
+  
+
+  .after{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+

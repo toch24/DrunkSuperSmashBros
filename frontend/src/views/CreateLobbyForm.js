@@ -3,11 +3,13 @@ import { Redirect } from 'react-router-dom';
 import { post_data,} from '../Utilities/FetchFunction';
 import "./Home.css";
 import loading from "../images/808.gif"
+import { useHistory } from "react-router"
 
 class CreateLobbyForm extends React.Component {
 
     constructor(props) {
         super(props);
+        
         this.state = {name: '', isSubmitted: false, newCode: '', players: []}
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,7 +56,8 @@ class CreateLobbyForm extends React.Component {
 
     handleIn = (e) => {
         e.preventDefault();
-        window.location.assign("/selectchars")
+        window.location.assign("/afterlobby")
+
       }
 
     get_code(){
@@ -97,7 +100,7 @@ class CreateLobbyForm extends React.Component {
        
                 <h2>GAME CODE: {this.state.newCode}</h2>
                 <div className = 'joined-players'>
-                    <p>Current joined players (max 8):</p>
+                    <p>Current joined players:</p>
                     { this.state.players.map((val) =>
                     <div className="">
                         <p key={val}>{val}</p>
