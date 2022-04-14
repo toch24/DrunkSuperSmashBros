@@ -51,6 +51,14 @@
     height: 50vh;
 }
 
+.text-popup{
+  background-color: aliceblue;
+  position: relative;
+  border-radius: 20px;
+  width: 50vh;
+  height: 10vh;
+}
+
 .close-button {
     float: right;
     margin-top: 7px;
@@ -193,5 +201,17 @@ transition: all 0.2s;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+  }
+  
+  .custom{
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 4vh;
+    border: 1px;
+    margin-bottom: 4vh;
+    opacity: 0.5;
+    background-color: rgb(238, 238, 238);
+ 
   }
 

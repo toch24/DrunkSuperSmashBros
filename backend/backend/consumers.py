@@ -55,15 +55,17 @@ class HostLobbyConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         message = messageRouter(text_data)
-
+        
         #Send message to every member of lobby. Utilizes the room_message function below.
         async_to_sync(self.channel_layer.group_send)(
+            
             self.room_group_name,
             {
                 'type':'room_message',
                 'message':message
             }
         )
+ 
 
     #Function that actually sends the message
     def room_message(self, event):
@@ -141,7 +143,6 @@ class VisitorLobbyConsumer(WebsocketConsumer):
 
     def receive(self, text_data):
         message = messageRouter(text_data)
-
         #Send message to every member of lobby. Utilizes the room_message function below.
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
