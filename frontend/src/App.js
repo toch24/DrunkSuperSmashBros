@@ -1,7 +1,7 @@
 import React from 'react';
 import "./style.css";
 import Home from './views/Home';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'
 import CharSelect from "./views/CharSelect";
 import Betting from "./views/Betting";
 import AfterLobby from './views/AfterLobby';

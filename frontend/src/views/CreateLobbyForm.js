@@ -1,105 +1,97 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import { Redirect } from 'react-router-dom';
+import React, {useCallback, useEffect, useState, useReducer} from 'react';
+import { useNavigate } from 'react-router-dom'
 import { post_data,} from '../Utilities/FetchFunction';
 import "./Home.css";
 import loading from "../images/808.gif"
 import socket from "./socketConfig"
+import AfterLobby from './AfterLobby';
 
 
-class CreateLobbyForm extends React.Component {
+function CreateLobbyForm() {
 
-    constructor(props) {
-        super(props);
-        
-        this.state = {name: '', isSubmitted: false, newCode: '', players: []}
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleIn = this.handleIn.bind(this);
+    const [state, setState] = useReducer(infoReducer, initialValues)
+    const history = useNavigate();
 
-
-    }
-    
-
-    handleChange(event) {
+    const handleChange = (e) => {
+        e.preventDefault()
         console.log("change occur");
-        this.setState({name: event.target.value});
+        setState({name: e.target.value});
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
         //saving name in local storage for future use
-        localStorage.setItem('name', this.state.name)
+        localStorage.setItem('name', state.name)
         
         //establishing connection to a new websocket, the url used most likely has to change when publishing the website.
-        let s = this.get_code()
+        let s = get_code()
+
+        setState({players: [...state.players, state.name]})
 
         if(s === 200){
-            this.setState({isSubmitted: true})
+            setState({isSubmitted: true})
         }
         else{
-            this.setState({isSubmitted: false})
+            console.log("I SHOULDNT BE HERE")
+            setState({isSubmitted: false})
         }
 
-        let p = this.state.players;
-        p.push(this.state.name)
-        console.log(this.state.players)
+
 
         //creating form to send data to the backend
        let form_data = new FormData()
-       let keys = Object.keys(this.state)
+       let keys = Object.keys(state)
        keys.forEach(key => {
-           form_data.append(key, this.state[key])
+           form_data.append(key, state[key])
        })
        post_data(form_data, "new_lobby") 
         
     }
 
-    handleIn = (e) => {
+    const handleIn = (e) => {
+        e.preventDefault()
+
         socket.send("everyone_in")
-        window.location.assign("/afterlobby")
-        
+        history('/afterlobby');
+
       }
 
-    get_code(){
-        console.log(this.state.name);
+    function get_code() {
+        console.log(state.name);
 
-        socket.send("create_lobby,"+this.state.name)
+        socket.send("create_lobby,"+state.name)
+
 
         socket.onmessage = (e) => {
                 let data = JSON.parse(e.data)
                 console.log(data)
                 if(data['event_type'] === 'lobby_code'){
+                    
                     localStorage.setItem('code', data['message'])
                     localStorage.setItem('host', true)
-                    this.setState(...this.state.newCode, {newCode: data['message']})
+                    setState({newCode: data['message']})
                 }
                 else if(data['event_type'] === 'player_joined'){
                     console.log(data['message'])
                     let joined_players = JSON.parse(data['message'])
-                    this.setState({players: joined_players})
+                    setState({players: joined_players})
 
                 }
+      
         }
 
         return 200
+        
     }
 
-
-    
-    render() {
-        const isSubmitted = this.state.isSubmitted;
-        let returnContent;
-       
-        
-        if (isSubmitted) {
- 
-            returnContent = (
+        if (state.isSubmitted) {
+            return (
                 <div className = 'lobby'>
        
-                <h2>GAME CODE: {this.state.newCode}</h2>
+                <h2>GAME CODE: {state.newCode}</h2>
                 <div className = 'joined-players'>
                     <p>Current joined players:</p>
-                    { this.state.players.map((val) =>
+                    { state.players.map((val) =>
                     <div className="">
                         <p key={val}>{val}</p>
                     </div>
@@ -109,22 +101,37 @@ class CreateLobbyForm extends React.Component {
                     <img className = 'loading' src={loading} alt=" " />
                 </div>
                 
-                <button className='everyone' type="submit" onClick={this.handleIn}> Everyone's In!</button>
+                <button className='everyone' type="submit" onClick={handleIn}> Everyone's In! </button> 
                 
                 </div>
             )
         }
         else {
-            returnContent = (
-            <form className='cl-form' onSubmit={this.handleSubmit}>
+            return (
+                <>
                 Enter Your Name: <br/> <br/>
-                <input className='textBox' type="text" value={this.state.name} onChange={this.handleChange}/>
+                <input className='textBox' type="text" value={state.name} onChange={handleChange}/>
                 <br/> <br/>
-                <input className='my-submit' type="submit" value="Create Lobby"/>
-            </form>);
+                <input className='my-submit' type="submit" onClick={handleSubmit} value="Create Lobby"/>
+                </>
+            )
         }
-        return returnContent;
     }
-}
+
 
 export default CreateLobbyForm
+
+
+const initialValues = {
+    name: '',
+    isSubmitted: false,
+    newCode: '',
+    players: []
+};
+
+const infoReducer = (state, action) => {
+    return {
+        ...state,
+        ...action
+    }
+}

@@ -1,10 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import { Navigate } from 'react-router-dom';
+import socket from './socketConfig'
 
 function AfterLobby() {
 
     const handleJoin = (e) => {
-        window.location.assign("/selectchars")
+ //       window.location.assign("/selectchars")
+   //     socket.send("test")
+   //     socket.onmessage = (e) => {
+   //         let data = JSON.parse(e.data)
+   //         console.log(data)
+//
+   //     }
+
     }
 
     const handleEnd = (e) => {
