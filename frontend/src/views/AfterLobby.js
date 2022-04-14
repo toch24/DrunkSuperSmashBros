@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { Navigate } from 'react-router-dom';
 import socket from './socketConfig'
+import { useNavigate } from 'react-router-dom'
 
 function AfterLobby() {
 
+    const history = useNavigate();
     const handleJoin = (e) => {
  //       window.location.assign("/selectchars")
    //     socket.send("test")
@@ -16,10 +18,12 @@ function AfterLobby() {
     }
 
     const handleEnd = (e) => {
-        window.location.assign("/")
+        history("/")
     }
 
-
+    const handleBet = (e) => {
+        history("/beforebetting")
+    }
 
     if(localStorage.getItem('code') != null) {
         return(
@@ -29,7 +33,7 @@ function AfterLobby() {
                     <button className='everyone' type="submit" onClick={handleJoin} >JOIN GAME</button>
                 </div>
                 <div>
-                <button className='everyone' type="submit" >BET</button> <br/><br/>
+                <button className='everyone' type="submit" onClick={handleBet}>BET</button> <br/><br/>
                 </div>
 
                 <div>

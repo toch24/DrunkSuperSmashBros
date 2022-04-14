@@ -1,4 +1,4 @@
-from asyncio.windows_events import NULL
+# from asyncio.windows_events import NULL
 from cgitb import text
 import json
 from api import models
@@ -27,7 +27,7 @@ class LobbyConsumer(WebsocketConsumer):
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,
             self.channel_name
-        )
+        )    
         
         print("disconnected")
 
@@ -85,6 +85,7 @@ class LobbyConsumer(WebsocketConsumer):
             self.room_group_name = self.room.room_code
             #Save player to db.
             self.player.save()
+
             async_to_sync(self.channel_layer.group_add)(
                 self.room_group_name,
                 self.channel_name
@@ -101,6 +102,36 @@ class LobbyConsumer(WebsocketConsumer):
                 'event_type':'player_joined',
                 'message':json.dumps([player.player_name for player in self.roomPlayers])
               
+                }
+            )
+
+        if(data[0] == "wait_bet"):
+            ready = False
+            self.player = models.players()
+            # self.room = models.lobbies.objects.get(room_code = data[1])
+            # self.player.room_code = self.room
+            # self.room_group_name = self.room.room_code
+            # #Save player to db.
+            # self.player.save()
+
+            # async_to_sync(self.channel_layer.group_add)(
+            #     self.room_group_name,
+            #     self.channel_name
+            # )
+
+            #Grab all players referencing the same room_code.
+            print(data[1])
+            # self.roomPlayers = list(models.players.objects.filter(room_code = data[1]))
+            # print(self.roomPlayers)
+
+            #Sending an updated list of lobby players to client.   
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                'type':'room_message',
+                'event_type':'wait_bet',
+                'message': ready
+            
                 }
             )
 
@@ -122,4 +153,3 @@ class LobbyConsumer(WebsocketConsumer):
             'event_type':eventType,
             'message':message
         }))
-

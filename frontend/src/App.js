@@ -6,6 +6,7 @@ import CharSelect from "./views/CharSelect";
 import Betting from "./views/Betting";
 import AfterLobby from './views/AfterLobby';
 import WaitingRoom from './views/WaitingRoom'
+import WaitBetting from './views/BeforeBetting'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path = '/selectchars' element={<CharSelect/>} />
           <Route path = '/betting' element={<Betting/>} />
           <Route path = '/waitingroom' element={<WaitingRoom/>} />
+          <Route path = '/beforebetting' element={<WaitBetting/>} />
           
         </Routes>
       </Router>

@@ -43,14 +43,12 @@ class lobbies(models.Model):
     room_code = models.CharField(max_length=5, default=roomGuid, unique=True)
     room_host = models.CharField(max_length=20)
     numPlayers = models.IntegerField(null = False, default=1)
+    numBetted = models.IntegerField(null = False, default=0)
 
 
 class players(models.Model):
     player_id = models.BigAutoField(primary_key=True)
     room_code = models.ForeignKey(to=lobbies, on_delete=models.CASCADE)
     player_name = models.CharField(max_length=20)
-    is_playing = models.BooleanField(default=False)
+    is_playing = models.BooleanField(null = True)
     bet_for = models.CharField(null = True, max_length=20)
-
-
-

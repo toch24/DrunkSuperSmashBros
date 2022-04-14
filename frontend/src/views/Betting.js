@@ -7,7 +7,7 @@ import JoinForm from './JoinForm';
 class Betting extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {bet: 0, isSubmitted: false, players: ["test player1", "test player2", "test player3"], 
+        this.state = {bet: 0, isSubmitted: false, players: [], code: "",
             betFor: "", message: "", name: ""}
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,7 +30,7 @@ class Betting extends React.Component {
 
         if(!this.state.players.includes(this.state.betFor)){
             this.setState({message: "Please enter player name in the list."})
-            this.setState({isSubmitted: false})
+            // this.setState({isSubmitted: false})
         }
         // else if (this.state.bet > 10 || this.state.bet < 0){
         //     this.setState({message: "Bet between 0 and 10."})
@@ -40,11 +40,30 @@ class Betting extends React.Component {
             this.setState({isSubmitted: true})
             this.setState({message: ""})
         }
-        
+
         console.log(this.state.message)
         console.log(localStorage.getItem('name2'))
         this.state.name = localStorage.getItem('name2')
         console.log(this.state.name)
+        this.state.code = localStorage.getItem('code')
+
+        // pass the roomcode and username
+        let url = `ws://127.0.0.1:8080/ws/socket/bet_for/?room_code=${this.state.code};username=${this.state.name};betfor=${this.state.betFor}`
+
+        const socket = new WebSocket(url)
+
+        socket.onmessage = (e) => {
+            let data = JSON.parse(e.data)
+            if(data['event_type'] === 'player_betted'){
+                // localStorage.setItem('code', this.state.code)
+                // localStorage.setItem('host', false)
+                let betted_players = JSON.parse(data['message'])
+                this.setState({players: betted_players})
+                this.setState({isSubmited: true})
+            }
+        }
+
+        
         //creating form to send data to the backend
         let form_data = new FormData()
         let keys = Object.keys(this.state)
@@ -57,10 +76,26 @@ class Betting extends React.Component {
 
     render(){
         const isSubmitted = this.state.isSubmitted;
-        let returnContent;
+        
         
         while (!isSubmitted)
         {
+            // this.state.name = localStorage.getItem('name2')
+
+            // let url = `ws://127.0.0.1:8080/ws/socket/bet_for/?room_code=${this.state.code};username=${this.state.name};betfor=${this.state.betFor}`
+
+            // const socket = new WebSocket(url)
+
+            // socket.onmessage = (e) => {
+            //     let data = JSON.parse(e.data)
+            //     if(data['event_type'] === 'player_betted'){
+            //         // localStorage.setItem('code', this.state.code)
+            //         // localStorage.setItem('host', false)
+            //         let betted_players = JSON.parse(data['message'])
+            //         this.setState({players: betted_players})
+            //         this.setState({isSubmited: true})
+            //     }
+            // }
             return(
                 <div className = "betting">
                     <form className='bt-form' onSubmit={this.handleSubmit}>
