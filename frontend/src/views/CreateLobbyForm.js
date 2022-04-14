@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { Redirect } from 'react-router-dom';
 import { post_data,} from '../Utilities/FetchFunction';
 import "./Home.css";
 import loading from "../images/808.gif"
+import socket from "./socketConfig"
 
 
 class CreateLobbyForm extends React.Component {
@@ -30,9 +31,9 @@ class CreateLobbyForm extends React.Component {
         localStorage.setItem('name', this.state.name)
         
         //establishing connection to a new websocket, the url used most likely has to change when publishing the website.
-        let socket = this.get_code()
+        let s = this.get_code()
 
-        if(socket){
+        if(s === 200){
             this.setState({isSubmitted: true})
         }
         else{
@@ -54,21 +55,16 @@ class CreateLobbyForm extends React.Component {
     }
 
     handleIn = (e) => {
+        socket.send("everyone_in")
         window.location.assign("/afterlobby")
-        let url = `ws://127.0.0.1:8080/ws/socket/new_lobby/?username=${this.state.name}`
-        const socket = new WebSocket(url)
-        socket.onmessage = (e) => {
-                let data = JSON.parse(e.data)
-                console.log(data)
-            }
+        
       }
 
     get_code(){
         console.log(this.state.name);
 
-        //pass the username
-        let url = `ws://127.0.0.1:8080/ws/socket/new_lobby/?username=${this.state.name}`
-        const socket = new WebSocket(url)
+        socket.send("create_lobby,"+this.state.name)
+
         socket.onmessage = (e) => {
                 let data = JSON.parse(e.data)
                 console.log(data)
@@ -84,8 +80,8 @@ class CreateLobbyForm extends React.Component {
 
                 }
         }
-   
-        return socket
+
+        return 200
     }
 
 

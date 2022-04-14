@@ -38,7 +38,7 @@ function WaitingRoom () {
             </div>
         )
     }
-    else{
+    else if (localStorage.getItem('host') == false){
         return(
             <div className='after'>
             <div>
@@ -47,6 +47,11 @@ function WaitingRoom () {
             
             <h2>Waiting</h2>
             </div>
+        )
+    }
+    else{
+        return(
+            <Navigate to = '/' />
         )
     }
 }

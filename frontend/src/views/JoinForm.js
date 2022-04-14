@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import "./Home.css";
 import loading from "../images/808.gif"
+import socket from './socketConfig';
 
 class JoinForm extends React.Component {
 
@@ -26,9 +27,11 @@ class JoinForm extends React.Component {
         localStorage.setItem('name2', this.state.name);
 
         //pass the roomcode and username
-        let url = `ws://127.0.0.1:8080/ws/socket/join_lobby/?room_code=${this.state.code};username=${this.state.name}`
+      //  let url = `ws://127.0.0.1:8080/ws/socket/join_lobby/?room_code=${this.state.code};username=${this.state.name}`
 
-        const socket = new WebSocket(url)
+      //  const socket = new WebSocket(url)
+
+        socket.send('join,'+this.state.code+','+this.state.name)
 
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
@@ -39,6 +42,9 @@ class JoinForm extends React.Component {
                 let joined_players = JSON.parse(data['message'])
                 this.setState({players: joined_players})
                 this.setState({isSubmited: true})
+            }
+            if(data['event_type'] === 'everyone_in'){
+                window.location.assign("/afterlobby")
             }
         }
     }
