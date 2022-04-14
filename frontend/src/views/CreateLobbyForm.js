@@ -37,7 +37,7 @@ function CreateLobbyForm() {
         }
 
 
-
+/*
         //creating form to send data to the backend
        let form_data = new FormData()
        let keys = Object.keys(state)
@@ -45,7 +45,7 @@ function CreateLobbyForm() {
            form_data.append(key, state[key])
        })
        post_data(form_data, "new_lobby") 
-        
+        */
     }
 
     const handleIn = (e) => {

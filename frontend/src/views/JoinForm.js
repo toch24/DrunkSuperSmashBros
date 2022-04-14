@@ -1,65 +1,52 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import "./Home.css";
 import loading from "../images/808.gif"
 import socket from './socketConfig';
+import { useNavigate } from 'react-router-dom'
 
-class JoinForm extends React.Component {
+function JoinForm() {
+    const [state, setState] = useReducer(infoReducer, initialValues)
+    const history = useNavigate();
 
-    constructor(props) {
-        super(props);
-        this.state = {name: '', code:'', isSubmited: false, players: []};
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
+    const handleChange = (e) => {
         console.log("change occur");
-        const value = event.target.value;
-        this.setState({[event.target.name] : event.target.value});
+        const value = e.target.value;
+        setState({[e.target.name] : e.target.value});
     }
 
-    handleSubmit(event) {
-        const { name, code } = this.state
-        event.preventDefault();
-        console.log(this.state.name);
-        console.log(this.state.code);
-        localStorage.setItem('name2', this.state.name);
+    const handleSubmit = (e)  => {
+        e.preventDefault();
 
-        //pass the roomcode and username
-      //  let url = `ws://127.0.0.1:8080/ws/socket/join_lobby/?room_code=${this.state.code};username=${this.state.name}`
+        localStorage.setItem('name', state.name);
 
-      //  const socket = new WebSocket(url)
-
-        socket.send('join,'+this.state.code+','+this.state.name)
-
+        socket.send('join,'+state.code+','+state.name)
+        
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
             console.log(data)
             if(data['event_type'] === 'player_joined'){
-                localStorage.setItem('code', this.state.code)
+                localStorage.setItem('code', state.code)
                 localStorage.setItem('host', false)
                 let joined_players = JSON.parse(data['message'])
-                this.setState({players: joined_players})
-                this.setState({isSubmited: true})
+                setState({players: joined_players})
+                setState({isSubmitted: true})
             }
             if(data['event_type'] === 'everyone_in'){
-                window.location.assign("/afterlobby")
+ //               window.location.assign("/afterlobby")
+                history('/afterlobby')
             }
         }
     }
 
-    render() {
-        const isSubmitted = this.state.isSubmited;
-        let returnContent;
-        if (isSubmitted){
-            returnContent = (
+        if (state.isSubmitted){
+            return (
                 <div className = 'lobby'>
        
-                <h2>GAME CODE: {this.state.code}</h2>
+                <h2>GAME CODE: {state.code}</h2>
                 <div className = 'joined-players'>
                     <p>Current joined players:</p>
-                    { this.state.players.map((val) =>
+                    { state.players.map((val) =>
                     <div className="">
                         <p key={val}>{val}</p>
                     </div>
@@ -73,21 +60,34 @@ class JoinForm extends React.Component {
             )
         }
         else{
-            returnContent = (
-                <form className='cl-form' onSubmit={this.handleSubmit}>
+            return (
+                <>
                 Enter Your Name: <br/> <br/>
-                <input className='textBox' type="text" name='name' value={this.state.name} onChange={this.handleChange}/>
+                <input className='textBox' type="text" name='name' value={state.name} onChange={handleChange}/>
                 <br/> <br/>
                 Enter Lobby Code: <br/> <br/>
-                <input className='textBox' type="text" name='code' value={this.state.code} onChange={this.handleChange}/>
+                <input className='textBox' type="text" name='code' value={state.code} onChange={handleChange}/>
                 <br/> <br/>
-                <input className='my-submit' type="submit" value="Join Lobby"/>
-            </form>
+                <input className='my-submit' type="submit" onClick={handleSubmit} value="Join Lobby"/>
+                </>
             )
         }
 
-        return returnContent;
-    }
+     
 }
 
 export default JoinForm
+
+const initialValues = {
+    name: '',
+    isSubmitted: false,
+    code: '',
+    players: []
+};
+
+const infoReducer = (state, action) => {
+    return {
+        ...state,
+        ...action
+    }
+}

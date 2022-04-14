@@ -85,7 +85,6 @@ class LobbyConsumer(WebsocketConsumer):
             self.room_group_name = self.room.room_code
             #Save player to db.
             self.player.save()
-
             async_to_sync(self.channel_layer.group_add)(
                 self.room_group_name,
                 self.channel_name
