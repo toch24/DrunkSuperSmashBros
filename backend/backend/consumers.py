@@ -135,6 +135,15 @@ class LobbyConsumer(WebsocketConsumer):
                 }
             )
 
+        if(data[0] == "end_lobby"):
+            async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            {
+                'type':'room_message',
+                'event_type':'end_lobby',
+                'message': 'true'
+            })
+
 
  
     #NOT FINISHED: this for now just deserializes the json message. This function will parse and route to functions based on the message contents.

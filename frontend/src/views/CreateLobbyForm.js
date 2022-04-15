@@ -4,8 +4,6 @@ import { post_data,} from '../Utilities/FetchFunction';
 import "./Home.css";
 import loading from "../images/808.gif"
 import socket from "./socketConfig"
-import AfterLobby from './AfterLobby';
-
 
 function CreateLobbyForm() {
 
@@ -52,7 +50,7 @@ function CreateLobbyForm() {
         e.preventDefault()
 
         socket.send("everyone_in")
-        history('/afterlobby');
+        history('/afterlobbyhost');
 
       }
 

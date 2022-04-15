@@ -28,13 +28,14 @@ function JoinForm() {
             if(data['event_type'] === 'player_joined'){
                 localStorage.setItem('code', state.code)
                 localStorage.setItem('host', false)
+                console.log(localStorage.getItem('host'))
                 let joined_players = JSON.parse(data['message'])
                 setState({players: joined_players})
                 setState({isSubmitted: true})
             }
             if(data['event_type'] === 'everyone_in'){
  //               window.location.assign("/afterlobby")
-                history('/afterlobby')
+                history('/afterlobbyguest')
             }
         }
     }
