@@ -145,7 +145,6 @@ class LobbyConsumer(WebsocketConsumer):
             })
 
 
- 
     #NOT FINISHED: this for now just deserializes the json message. This function will parse and route to functions based on the message contents.
     def messageRouter(message):
         text_data_json = json.loads(message)

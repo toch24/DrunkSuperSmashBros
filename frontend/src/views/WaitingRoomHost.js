@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { Navigate } from 'react-router-dom';
-import loading from '../images/808.gif'
 import TextPopup from './TextPopup'
 
 
-function WaitingRoom () {
+function WaitingRoomHost () {
     const [custom, setCustom] = useState(false);
     const [challenge, setChallenge] = useState('');
 
@@ -16,7 +15,7 @@ function WaitingRoom () {
        console.log(challenge)
     }
 
-    if(localStorage.getItem('host')) {
+    if(localStorage.getItem('code') != null) {
         return(
             <div className='after'> 
             <div>
@@ -38,17 +37,6 @@ function WaitingRoom () {
             </div>
         )
     }
-    else if (localStorage.getItem('host') == false){
-        return(
-            <div className='after'>
-            <div>
-                <img className = 'loading' src={loading} alt=" " />
-            </div>
-            
-            <h2>Waiting</h2>
-            </div>
-        )
-    }
     else{
         return(
             <Navigate to = '/' />
@@ -56,4 +44,4 @@ function WaitingRoom () {
     }
 }
 
-export default WaitingRoom
+export default WaitingRoomHost

@@ -2,11 +2,13 @@ import React from 'react';
 import "./style.css";
 import Home from './views/Home';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom'
-import CharSelect from "./views/CharSelect";
+import CharSelectHost from "./views/CharSelectHost";
+import CharSelectGuest from "./views/CharSelectGuest";
 import Betting from "./views/Betting";
 import AfterLobbyHost from './views/AfterLobbyHost';
 import AfterLobbyGuest from './views/AfterLobbyGuest';
-import WaitingRoom from './views/WaitingRoom'
+import WaitingRoomHost from './views/WaitingRoomHost'
+import WaitingRoomGuest from './views/WaitingRoomGuest'
 import WaitBetting from './views/BeforeBetting'
 
 function App() {
@@ -20,9 +22,11 @@ function App() {
           <Route path = '/' element={<Home/>} />
           <Route path = '/afterlobbyhost' element={<AfterLobbyHost/>} />
           <Route path = '/afterlobbyguest' element={<AfterLobbyGuest/>} />
-          <Route path = '/selectchars' element={<CharSelect/>} />
+          <Route path = '/selectcharshost' element={<CharSelectHost/>} />
+          <Route path = '/selectcharsguest' element={<CharSelectGuest/>} />
           <Route path = '/betting' element={<Betting/>} />
-          <Route path = '/waitingroom' element={<WaitingRoom/>} />
+          <Route path = '/waitingroomhost' element={<WaitingRoomHost/>} />
+          <Route path = '/waitingroomguest' element={<WaitingRoomGuest/>} />
           <Route path = '/beforebetting' element={<WaitBetting/>} />
           
         </Routes>

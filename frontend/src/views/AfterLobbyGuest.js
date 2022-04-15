@@ -8,7 +8,7 @@ function AfterLobbyGuest() {
     const history = useNavigate();
 
     const handleJoin = (e) => {
-        history('/selectchars')
+        history('/selectcharsguest')
 
     }
 
