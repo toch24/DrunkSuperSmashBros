@@ -50,7 +50,11 @@ function CreateLobbyForm() {
         e.preventDefault()
 
         socket.send("everyone_in")
-        history('/afterlobbyhost');
+        history('/afterlobbyhost', {
+            state: {
+                name: state.name
+            }
+        });
 
       }
 

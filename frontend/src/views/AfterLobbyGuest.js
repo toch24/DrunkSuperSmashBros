@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react';
 import { Navigate } from 'react-router-dom';
 import socket from './socketConfig'
 import { useNavigate } from 'react-router-dom'
+import {useLocation} from 'react-router-dom';
 
 function AfterLobbyGuest() {
-
     const history = useNavigate();
+    const location = useLocation();
+    console.log(location.state.name)
 
     const handleJoin = (e) => {
         history('/selectcharsguest')

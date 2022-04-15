@@ -35,7 +35,11 @@ function JoinForm() {
             }
             if(data['event_type'] === 'everyone_in'){
  //               window.location.assign("/afterlobby")
-                history('/afterlobbyguest')
+                history('/afterlobbyguest', {
+                    state: {
+                        name: state.name
+                    }
+                })
             }
         }
     }

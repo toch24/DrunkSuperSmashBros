@@ -105,22 +105,28 @@ class LobbyConsumer(WebsocketConsumer):
                 }
             )
 
+        if(data[0] == "end_lobby"):
+            async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            {
+                'type':'room_message',
+                'event_type':'end_lobby',
+                'message': 'true'
+            })
+
         if(data[0] == "wait_bet"):
-            ready = False
-            self.player = models.players()
-            # self.room = models.lobbies.objects.get(room_code = data[1])
-            # self.player.room_code = self.room
-            # self.room_group_name = self.room.room_code
-            # #Save player to db.
-            # self.player.save()
+            print("TESTTTTTT: "+data[2])
+            ready = True # temp set to true
+            self.room = models.lobbies.objects.get(room_code = data[1])
+            self.playerToUpdate = models.players.objects.filter(room_code = self.room)
+            for player in self.playerToUpdate:
+                print("MY TEST PLAYER NAME: "+player.player_name)
+            # .update(is_playing = False)
+            # self.playerToUpdate.is_playing = False
+            # self.playerToUpdate.save()
 
-            # async_to_sync(self.channel_layer.group_add)(
-            #     self.room_group_name,
-            #     self.channel_name
-            # )
-
-            #Grab all players referencing the same room_code.
-            print(data[1])
+            self.players = list(models.players.objects.filter(room_code = self.room))
+            print(self.players)
             # self.roomPlayers = list(models.players.objects.filter(room_code = data[1]))
             # print(self.roomPlayers)
 
@@ -135,14 +141,24 @@ class LobbyConsumer(WebsocketConsumer):
                 }
             )
 
-        if(data[0] == "end_lobby"):
+        if(data[0] == "betting"):
+            self.player = models.players()
+            self.room = models.lobbies.objects.get(room_code = data[1])
+
+            #Grab all players referencing the same room_code and not betting.
+            # self.roomPlayers = list(models.players.objects.filter(is_playing=True, room_code = self.room))
+
+            #Sending an updated list of lobby players to client.   
             async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
+                self.room_group_name,
+                {
                 'type':'room_message',
-                'event_type':'end_lobby',
-                'message': 'true'
-            })
+                'event_type':'betting',
+                # 'message':json.dumps([player.player_name for player in self.roomPlayers])
+                'message':json.dumps(["test1", "test2", "test3"]) # just for testing
+                }
+            )
+
 
 
     #NOT FINISHED: this for now just deserializes the json message. This function will parse and route to functions based on the message contents.

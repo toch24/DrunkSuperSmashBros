@@ -10,6 +10,7 @@ import AfterLobbyGuest from './views/AfterLobbyGuest';
 import WaitingRoomHost from './views/WaitingRoomHost'
 import WaitingRoomGuest from './views/WaitingRoomGuest'
 import WaitBetting from './views/BeforeBetting'
+import WaitPlaying from './views/WaitPlaying'
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route path = '/waitingroomhost' element={<WaitingRoomHost/>} />
           <Route path = '/waitingroomguest' element={<WaitingRoomGuest/>} />
           <Route path = '/beforebetting' element={<WaitBetting/>} />
+          <Route path = '/waitplaying' element={<WaitPlaying/>} />
           
         </Routes>
       </Router>

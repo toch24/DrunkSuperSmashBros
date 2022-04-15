@@ -3,6 +3,8 @@ import "./Home.css";
 import { useParams } from "react-router-dom";
 import { post_data,} from '../Utilities/FetchFunction';
 import JoinForm from './JoinForm';
+import socket from './socketConfig';
+import {withRouter} from './withRouter';
 
 class Betting extends React.Component {
     constructor(props) {
@@ -12,11 +14,32 @@ class Betting extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleIn = this.handleIn.bind(this);
+
+        console.log(localStorage.getItem('name2')) // need another way to get name
+        this.state.name = localStorage.getItem('name2')
+        console.log(this.state.name)
+        this.state.code = localStorage.getItem('code')
+
+        socket.send('betting,'+this.state.code)
+        console.log("before onmessage")
+        socket.onmessage = (e) => {
+            let data = JSON.parse(e.data)
+            console.log("in onmessage")
+            console.log(data)
+            if(data['event_type'] === 'betting'){
+                // localStorage.setItem('code', this.state.code)
+                // localStorage.setItem('host', false)
+                let betted_players = JSON.parse(data['message'])
+                this.setState({players: betted_players})
+            }
+        }
+
+        console.log(this.state.players)
     }
 
     handleIn = (e) => {
         e.preventDefault();
-        window.location.assign("/")
+        this.props.navigate("/waitplaying")
     }
 
     handleChange(event) {
@@ -30,48 +53,17 @@ class Betting extends React.Component {
 
         if(!this.state.players.includes(this.state.betFor)){
             this.setState({message: "Please enter player name in the list."})
-            // this.setState({isSubmitted: false})
+            this.setState({isSubmitted: false})
         }
-        // else if (this.state.bet > 10 || this.state.bet < 0){
-        //     this.setState({message: "Bet between 0 and 10."})
-        //     this.setState({isSubmitted: false})
-        // }
         else {
             this.setState({isSubmitted: true})
             this.setState({message: ""})
         }
 
         console.log(this.state.message)
-        console.log(localStorage.getItem('name2'))
-        this.state.name = localStorage.getItem('name2')
-        console.log(this.state.name)
-        this.state.code = localStorage.getItem('code')
 
-        // pass the roomcode and username
-        let url = `ws://127.0.0.1:8080/ws/socket/bet_for/?room_code=${this.state.code};username=${this.state.name};betfor=${this.state.betFor}`
-
-        const socket = new WebSocket(url)
-
-        socket.onmessage = (e) => {
-            let data = JSON.parse(e.data)
-            if(data['event_type'] === 'player_betted'){
-                // localStorage.setItem('code', this.state.code)
-                // localStorage.setItem('host', false)
-                let betted_players = JSON.parse(data['message'])
-                this.setState({players: betted_players})
-                this.setState({isSubmited: true})
-            }
-        }
-
-        
-        //creating form to send data to the backend
-        let form_data = new FormData()
-        let keys = Object.keys(this.state)
-        keys.forEach(key => {
-            form_data.append(key, this.state[key])
-        })
-        post_data(form_data, "betting") 
-        
+        if(this.state.players.includes(this.state.betFor))
+            this.props.navigate("/waitplaying")
     }
 
     render(){
@@ -117,11 +109,11 @@ class Betting extends React.Component {
             )
         }
 
-        if (isSubmitted) {
-            return (
-                this.handleIn
-            )
-        }
+        // if (isSubmitted) {
+        //     return (
+        //         this.handleIn
+        //     )
+        // }
     }
 }
-export default Betting
+export default withRouter(Betting)
