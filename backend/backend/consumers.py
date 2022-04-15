@@ -19,9 +19,9 @@ class LobbyConsumer(WebsocketConsumer):
 
     #Remove room and player from db and close websocket connection.
     def disconnect(self, closing_code):
-        if(self.player != NULL):
+        if(self.player != None):
             self.player.delete()
-        if(self.room != NULL):
+        if(self.room != None):
             self.room.delete()
 
         async_to_sync(self.channel_layer.group_discard)(

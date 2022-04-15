@@ -8,14 +8,7 @@ function AfterLobbyHost() {
     const history = useNavigate();
 
     const handleJoin = (e) => {
- //       window.location.assign("/selectchars")
-   //     socket.send("test")
-   //     socket.onmessage = (e) => {
-   //         let data = JSON.parse(e.data)
-   //         console.log(data)
-//
-   //     }
-
+        history('/selectchars')
     }
 
     const handleEnd = (e) => {

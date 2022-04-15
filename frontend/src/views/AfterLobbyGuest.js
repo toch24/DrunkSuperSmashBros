@@ -8,23 +8,17 @@ function AfterLobbyGuest() {
     const history = useNavigate();
 
     const handleJoin = (e) => {
- //       window.location.assign("/selectchars")
-   //     socket.send("test")
-   //     socket.onmessage = (e) => {
-   //         let data = JSON.parse(e.data)
-   //         console.log(data)
-//
-   //     }
+        history('/selectchars')
 
     }
 
-        socket.onmessage = (e) => {
-            let data = JSON.parse(e.data)
-            if(data['event_type'] === 'end_lobby'){
-                window.location.assign("/")
-            }
-
+    socket.onmessage = (e) => {
+        let data = JSON.parse(e.data)
+        if(data['event_type'] === 'end_lobby'){
+            window.location.assign("/")
         }
+
+    }
 
     const handleBet = (e) => {
         history("/beforebetting")
