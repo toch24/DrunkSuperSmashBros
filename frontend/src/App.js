@@ -13,6 +13,8 @@ import WaitBetting from './views/BeforeBetting'
 import WaitPlaying from './views/WaitPlaying'
 import BetChallenge from './views/BetChallenge'
 import BetWin from './views/BetWin'
+import BeforePlayingHost from './views/BeforePlayingHost';
+import BeforePlayingGuest from './views/BeforePlayingGuest';
 
 function App() {
 
@@ -31,6 +33,8 @@ function App() {
           <Route path = '/waitingroomhost' element={<WaitingRoomHost/>} />
           <Route path = '/waitingroomguest' element={<WaitingRoomGuest/>} />
           <Route path = '/beforebetting/:name' element={<WaitBetting/>} />
+          <Route path = '/beforeplayinghost/:name' element={<BeforePlayingHost/>} />
+          <Route path = '/beforeplayingguest/:name' element={<BeforePlayingGuest/>} />
           <Route path = '/waitplaying/:name' element={<WaitPlaying/>} />
           <Route path = '/betchallenge/:name' element={<BetChallenge/>} />
           <Route path = '/betwin/:name' element={<BetWin/>} />

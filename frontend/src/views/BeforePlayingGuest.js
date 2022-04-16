@@ -4,12 +4,12 @@ import loading from "../images/808.gif"
 import socket from './socketConfig';
 import {withRouter} from './withRouter';
 
-class WaitBetting extends React.Component {
+class BeforePlayingGuest extends React.Component {
     constructor(props) {
         super(props);
         this.state = {name: this.props.params.name, code: localStorage.getItem('code'), isSubmited: false};
         // let history = useNavigate();
-        socket.send('wait_bet,'+this.state.code+','+this.state.name)
+        socket.send('wait_join,'+this.state.code+','+this.state.name)
         console.log(this.state.code);
         console.log(this.props.params);
         socket.onmessage = (e) => {
@@ -18,9 +18,9 @@ class WaitBetting extends React.Component {
             if(data['event_type'] === 'everyone_ready'){
                 let ready = JSON.parse(data['message'])
                 console.log(ready)
-                if (ready)
+                if (ready == true)
                     // window.location.assign("/betting")
-                    this.props.navigate(`/betting/${this.props.params.name}`);
+                    this.props.navigate(`selectcharsguest`);
                 else
                     console.log("Waiting...")
             }
@@ -61,4 +61,4 @@ class WaitBetting extends React.Component {
 }
 
 
-export default withRouter(WaitBetting)
+export default withRouter(BeforePlayingGuest)

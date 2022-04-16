@@ -11,7 +11,7 @@ function AfterLobbyHost() {
     console.log(location.state.name)
 
     const handleJoin = (e) => {
-        history('/selectcharshost')
+        history(`/beforeplayinghost/${location.state.name}`)
     }
 
     const handleEnd = (e) => {
@@ -30,9 +30,6 @@ function AfterLobbyHost() {
                 <div className='after'>
                     <div>
                         <button className='everyone' type="submit" onClick={handleJoin} >JOIN GAME</button>
-                    </div>
-                    <div>
-                    <button className='everyone' type="submit" onClick={handleBet}>BET</button> <br/><br/>
                     </div>
     
                     <div>

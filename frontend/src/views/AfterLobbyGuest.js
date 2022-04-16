@@ -10,7 +10,7 @@ function AfterLobbyGuest() {
     console.log(location.state.name)
 
     const handleJoin = (e) => {
-        history('/selectcharsguest')
+        history(`/beforeplayingguest/${location.state.name}`)
 
     }
 

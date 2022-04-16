@@ -11,7 +11,7 @@ function WaitingRoomGuest () {
                 <img className = 'loading' src={loading} alt=" " />
             </div>
             
-            <h2>Waiting</h2>
+            <h2>Waiting for host to start challenge</h2>
             </div>
         )
     }

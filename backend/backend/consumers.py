@@ -128,14 +128,13 @@ class LobbyConsumer(WebsocketConsumer):
             if (len(self.players) == 0):
                 ready = True
 
-             
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
                 {
-                'type':'room_message',
-                'event_type':'wait_bet',
-                'message': ready
-            
+                    'type':'room_message',
+                    'event_type':'everyone_ready',
+                    'message': ready
+
                 }
             )
 
@@ -179,6 +178,28 @@ class LobbyConsumer(WebsocketConsumer):
                 'message': "true"
                 }
             )
+
+        if(data[0] == "wait_join"):
+            ready = False
+            self.room = models.lobbies.objects.get(room_code = data[1])
+            self.playerToUpdate = models.players.objects.filter(Q(player_name = data[2]) & Q(room_code = self.room)).update(is_playing = True)
+
+            self.players = list(models.players.objects.filter(Q(is_playing__isnull=True) & Q(room_code = self.room)))
+            print("NULL NUM: "+ str(len(self.players)))
+
+            if (len(self.players) == 0):
+                ready = True
+
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    'type':'room_message',
+                    'event_type':'everyone_ready',
+                    'message': ready
+                    }
+                )
+
+
 
     #NOT FINISHED: this for now just deserializes the json message. This function will parse and route to functions based on the message contents.
     def messageRouter(message):
