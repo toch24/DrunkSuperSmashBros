@@ -25,10 +25,10 @@ function App() {
           <Route path = '/afterlobbyguest' element={<AfterLobbyGuest/>} />
           <Route path = '/selectcharshost' element={<CharSelectHost/>} />
           <Route path = '/selectcharsguest' element={<CharSelectGuest/>} />
-          <Route path = '/betting' element={<Betting/>} />
+          <Route path = '/betting/:name' element={<Betting/>} />
           <Route path = '/waitingroomhost' element={<WaitingRoomHost/>} />
           <Route path = '/waitingroomguest' element={<WaitingRoomGuest/>} />
-          <Route path = '/beforebetting' element={<WaitBetting/>} />
+          <Route path = '/beforebetting/:name' element={<WaitBetting/>} />
           <Route path = '/waitplaying' element={<WaitPlaying/>} />
           
         </Routes>

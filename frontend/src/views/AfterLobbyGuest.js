@@ -23,7 +23,7 @@ function AfterLobbyGuest() {
     }
 
     const handleBet = (e) => {
-        history("/beforebetting")
+        history(`/beforebetting/${location.state.name}`)
     }
 
     if(localStorage.getItem('code') != null) {
