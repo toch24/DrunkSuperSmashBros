@@ -9,16 +9,11 @@ import {withRouter} from './withRouter';
 class Betting extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {bet: 0, isSubmitted: false, players: [], code: "",
-            betFor: "", message: "", name: ""}
+        this.state = {bet: 0, isSubmitted: false, players: [], code: localStorage.getItem('code'),
+            betFor: "", message: "", name: this.props.params.name}
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleIn = this.handleIn.bind(this);
-
-        console.log(localStorage.getItem('name2')) // need another way to get name
-        this.state.name = localStorage.getItem('name2')
-        console.log(this.state.name)
-        this.state.code = localStorage.getItem('code')
 
         socket.send('betting,'+this.state.code)
         console.log("before onmessage")
@@ -27,8 +22,6 @@ class Betting extends React.Component {
             console.log("in onmessage")
             console.log(data)
             if(data['event_type'] === 'betting'){
-                // localStorage.setItem('code', this.state.code)
-                // localStorage.setItem('host', false)
                 let betted_players = JSON.parse(data['message'])
                 this.setState({players: betted_players})
             }
@@ -39,7 +32,7 @@ class Betting extends React.Component {
 
     handleIn = (e) => {
         e.preventDefault();
-        this.props.navigate("/waitplaying")
+        this.props.navigate(`/waitplaying/${this.props.params.name}`)
     }
 
     handleChange(event) {

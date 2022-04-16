@@ -7,12 +7,11 @@ import {withRouter} from './withRouter';
 class WaitBetting extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {name: localStorage.getItem('name2'), code: localStorage.getItem('code'), isSubmited: false};
+        this.state = {name: this.props.params.name, code: localStorage.getItem('code'), isSubmited: false};
         // let history = useNavigate();
         socket.send('wait_bet,'+this.state.code+','+this.state.name)
-        console.log(this.state.name);
         console.log(this.state.code);
-        
+        console.log(this.props.params);
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
             console.log(data)
@@ -21,7 +20,7 @@ class WaitBetting extends React.Component {
                 console.log(ready)
                 if (ready)
                     // window.location.assign("/betting")
-                    this.props.navigate('/betting');
+                    this.props.navigate(`/betting/${this.props.params.name}`);
                 else
                     console.log("Waiting...")
             }

@@ -29,7 +29,7 @@ function App() {
           <Route path = '/waitingroomhost' element={<WaitingRoomHost/>} />
           <Route path = '/waitingroomguest' element={<WaitingRoomGuest/>} />
           <Route path = '/beforebetting/:name' element={<WaitBetting/>} />
-          <Route path = '/waitplaying' element={<WaitPlaying/>} />
+          <Route path = '/waitplaying/:name' element={<WaitPlaying/>} />
           
         </Routes>
       </Router>

@@ -1,5 +1,6 @@
 # from asyncio.windows_events import NULL
 from cgitb import text
+from django.db.models import Q
 import json
 from api import models
 import string
@@ -115,20 +116,15 @@ class LobbyConsumer(WebsocketConsumer):
             })
 
         if(data[0] == "wait_bet"):
-            print("TESTTTTTT: "+data[2])
-            ready = True # temp set to true
+            ready = False
             self.room = models.lobbies.objects.get(room_code = data[1])
-            self.playerToUpdate = models.players.objects.filter(room_code = self.room)
-            for player in self.playerToUpdate:
-                print("MY TEST PLAYER NAME: "+player.player_name)
-            # .update(is_playing = False)
-            # self.playerToUpdate.is_playing = False
-            # self.playerToUpdate.save()
+            self.playerToUpdate = models.players.objects.filter(Q(player_name = data[2]) & Q(room_code = self.room)).update(is_playing = False)
 
-            self.players = list(models.players.objects.filter(room_code = self.room))
-            print(self.players)
-            # self.roomPlayers = list(models.players.objects.filter(room_code = data[1]))
-            # print(self.roomPlayers)
+            self.players = list(models.players.objects.filter(Q(is_playing__isnull=True) & Q(room_code = self.room)))
+            print("NULL NUM: "+ str(len(self.players)))
+
+            if (len(self.players) == 0):
+                ready = True
 
             #Sending an updated list of lobby players to client.   
             async_to_sync(self.channel_layer.group_send)(
@@ -146,7 +142,7 @@ class LobbyConsumer(WebsocketConsumer):
             self.room = models.lobbies.objects.get(room_code = data[1])
 
             #Grab all players referencing the same room_code and not betting.
-            # self.roomPlayers = list(models.players.objects.filter(is_playing=True, room_code = self.room))
+            self.roomPlayers = list(models.players.objects.filter(Q(is_playing=False) & Q(room_code = self.room))) # is_playing temp set to False, change to True later
 
             #Sending an updated list of lobby players to client.   
             async_to_sync(self.channel_layer.group_send)(
@@ -154,8 +150,8 @@ class LobbyConsumer(WebsocketConsumer):
                 {
                 'type':'room_message',
                 'event_type':'betting',
-                # 'message':json.dumps([player.player_name for player in self.roomPlayers])
-                'message':json.dumps(["test1", "test2", "test3"]) # just for testing
+                'message':json.dumps([player.player_name for player in self.roomPlayers])
+                # 'message':json.dumps(["test1", "test2", "test3"]) # just for testing
                 }
             )
 
