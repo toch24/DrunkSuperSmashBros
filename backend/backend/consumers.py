@@ -1,6 +1,8 @@
 # from asyncio.windows_events import NULL
 from cgitb import text
+from unittest import result
 from django.db.models import Q
+from django.db.models import F
 import json
 from api import models
 import string
@@ -126,7 +128,7 @@ class LobbyConsumer(WebsocketConsumer):
             if (len(self.players) == 0):
                 ready = True
 
-            #Sending an updated list of lobby players to client.   
+             
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
                 {
@@ -144,18 +146,39 @@ class LobbyConsumer(WebsocketConsumer):
             #Grab all players referencing the same room_code and not betting.
             self.roomPlayers = list(models.players.objects.filter(Q(is_playing=False) & Q(room_code = self.room))) # is_playing temp set to False, change to True later
 
-            #Sending an updated list of lobby players to client.   
+               
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
                 {
                 'type':'room_message',
                 'event_type':'betting',
                 'message':json.dumps([player.player_name for player in self.roomPlayers])
-                # 'message':json.dumps(["test1", "test2", "test3"]) # just for testing
                 }
             )
 
+        if(data[0] == "bet_for"):
+            self.room = models.lobbies.objects.get(room_code = data[1])
+            models.players.objects.filter(Q(player_name = data[2]) & Q(room_code = self.room)).update(bet_for=data[3])
+            models.lobbies.objects.filter(Q(room_code = data[1])).update(numBetted=F('numBetted')+1)
+             
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                'type':'room_message',
+                'event_type':'wait_bet',
+                'message': data[2]+" betted for "+data[3]
+                }
+            )
 
+        if(data[0] == "finish_play"):
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                'type':'room_message',
+                'event_type':'wait_bet',
+                'message': "true"
+                }
+            )
 
     #NOT FINISHED: this for now just deserializes the json message. This function will parse and route to functions based on the message contents.
     def messageRouter(message):

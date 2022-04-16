@@ -13,7 +13,6 @@ class Betting extends React.Component {
             betFor: "", message: "", name: this.props.params.name}
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleIn = this.handleIn.bind(this);
 
         socket.send('betting,'+this.state.code)
         console.log("before onmessage")
@@ -28,11 +27,6 @@ class Betting extends React.Component {
         }
 
         console.log(this.state.players)
-    }
-
-    handleIn = (e) => {
-        e.preventDefault();
-        this.props.navigate(`/waitplaying/${this.props.params.name}`)
     }
 
     handleChange(event) {
@@ -56,7 +50,21 @@ class Betting extends React.Component {
         console.log(this.state.message)
 
         if(this.state.players.includes(this.state.betFor))
-            this.props.navigate("/waitplaying")
+        {
+            socket.send('bet_for,'+this.state.code+','+this.state.name+','+this.state.betFor)
+            console.log("before onmessage")
+            socket.onmessage = (e) => {
+                let data = JSON.parse(e.data)
+                console.log("in onmessage")
+                console.log(data)
+                if(data['event_type'] === 'bet_for'){
+                    let betted_players = JSON.parse(data['message'])
+                    console.log(betted_players)
+                }
+            }
+
+            this.props.navigate(`/waitplaying/${this.props.params.name}`)
+        }
     }
 
     render(){
