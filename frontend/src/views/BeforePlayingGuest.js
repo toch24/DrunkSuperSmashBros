@@ -20,7 +20,7 @@ class BeforePlayingGuest extends React.Component {
                 console.log(ready)
                 if (ready == true)
                     // window.location.assign("/betting")
-                    this.props.navigate(`selectcharsguest`);
+                    this.props.navigate(`/selectcharsguest`);
                 else
                     console.log("Waiting...")
             }
