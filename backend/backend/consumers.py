@@ -22,15 +22,17 @@ class LobbyConsumer(WebsocketConsumer):
 
     #Remove room and player from db and close websocket connection.
     def disconnect(self, closing_code):
-        if(self.player != None):
+        if hasattr(self, 'player'):
             self.player.delete()
-        if(self.room != None):
+        if hasattr(self, 'room') and self.player.player_name == self.room.room_host:
+            #TODO: Currently this will kill the lobby, we need to send a disconnect to all players.
             self.room.delete()
 
-        async_to_sync(self.channel_layer.group_discard)(
-            self.room_group_name,
-            self.channel_name
-        )    
+        if hasattr(self, 'room_group_name'):
+            async_to_sync(self.channel_layer.group_discard)(
+                self.room_group_name,
+                self.channel_name
+            )    
         
         print("disconnected")
 
@@ -40,7 +42,6 @@ class LobbyConsumer(WebsocketConsumer):
         data = text_data.split(',')
 
         if(data[0] == 'create_lobby'):
-            
             #Create a lobby and player, these will get saved to the db.
             self.room = models.lobbies()
             self.player = models.players()
