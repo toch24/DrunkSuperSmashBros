@@ -44,6 +44,7 @@ class lobbies(models.Model):
     room_host = models.CharField(max_length=20)
     numPlayers = models.IntegerField(null = False, default=1)
     numBetted = models.IntegerField(null = False, default=0)
+    players_playing = ArrayField(models.CharField(max_length=500), null=True)
 
 
 class players(models.Model):
