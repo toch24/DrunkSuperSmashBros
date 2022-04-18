@@ -1,15 +1,23 @@
-FROM ubuntu:18.04
-RUN apt-get update \
-&& apt-get install -y vim \
-&& apt-get install -y nodejs \
-&& apt-get install -y npm
-WORKDIR /src/frontend
-COPY package.json /src/frontend
-RUN npm install -g npm@latest
-RUN npm i --package-lock-only
-RUN npm install
-COPY . /src/frontend
+FROM node:13.12.0-alpine
+
+# set working directory
+WORKDIR /app
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
+
+# add app
+COPY . ./
+
 EXPOSE 3000
+
+# start app
 CMD ["npm", "start"]
 
-# https://medium.com/@sverma23x/6-simple-steps-to-dockerize-your-django-and-react-app-e6fe20036e53
+#https://mherman.org/blog/dockerizing-a-react-app/

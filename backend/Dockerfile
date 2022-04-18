@@ -12,6 +12,7 @@ RUN python3.8 -m pip install psycopg2-binary
 RUN python3.8 -m pip install --upgrade pip wheel
 RUN apt-get install python3-dev
 RUN python3.8 -m pip install backports.zoneinfo
+RUN apt-get install python3-tk -y
 RUN python3.8 -m pip install -r requirements.txt
 
 RUN apt-get install ufw -y
