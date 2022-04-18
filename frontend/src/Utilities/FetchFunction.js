@@ -20,3 +20,9 @@ export async function get_char_data(){
     
     return response.data
 }
+
+export async function get_rand_challenge(){
+    const response = await Axios.get(`${fetch_url}/get_rand_challenge`)
+    
+    return response.data
+}
