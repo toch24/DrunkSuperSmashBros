@@ -8,10 +8,10 @@ function ChallengeHost(){
         <>
         
         <div className='challenge'>
-            <h3>{location.state.challenge}</h3>
+            <h4>{location.state.challenge}</h4>
         </div>
 
-        <div>
+        <div className="game-done">
         <button className='end' type="submit"> GAME DONE! </button> 
         </div>
         </>

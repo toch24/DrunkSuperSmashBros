@@ -11,23 +11,30 @@ function WaitingRoomGuest () {
     useEffect(() => {
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
-            if(data['event_type'] === 'challenge') 
+            if(data['event_type'] === 'challenge'){
+                console.log("am i here")
                 setChallenge(data['message'])
                 history('/challengeguest', {state:{challenge: data['message']}})
-            
+            }
         }
     
     }, []);
 
     if(localStorage.getItem('code') != null) {
         return(
+            <>
+            
             <div className='after'>
             <div>
-                <img className = 'loading' src={loading} alt=" " />
+                Waiting for host to start challenge
             </div>
-            
-            <h2>Waiting for host to start challenge</h2>
+
             </div>
+
+            <div className='img-loading'>
+            <img className = 'loading' src={loading} alt=" " />
+            </div>
+            </>
         )
     }
     else{

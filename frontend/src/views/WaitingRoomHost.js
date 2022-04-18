@@ -27,15 +27,14 @@ function WaitingRoomHost () {
        socket.send("new_challenge")
        socket.onmessage = (e) => {
         let data = JSON.parse(e.data)
-        if(data['event_type'] === 'new_challenge') // this is called after a winner is provided
+        if(data['event_type'] === 'new_challenge'){
             console.log(data['message'])
             setChallenge(data['message'])
             socket.send('challenge,'+data['message']+',')
 
             //not sure why using state challenge it wont pass the challenge
             history('/challengehost', {state:{challenge: data['message']}})
-        
-        
+        }
         }
     }
 
@@ -48,13 +47,19 @@ function WaitingRoomHost () {
 
     if(!canPickChallenge){
         return(
+            <>
+            
             <div className='after'>
             <div>
-                <img className = 'loading' src={loading} alt="loading bar" />
+                Waiting for players to select their characters
+            </div>
+            </div>
+            <div className='img-loading'>
+                <img className = 'loading' src={loading} alt=" " />
             </div>
             
-            <h2>Waiting for players to pick their characters</h2>
-            </div>
+            </>
+
         )
     }
     else if(localStorage.getItem('code') != null && canPickChallenge) {

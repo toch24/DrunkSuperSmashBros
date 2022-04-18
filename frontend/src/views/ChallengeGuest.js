@@ -5,9 +5,12 @@ function ChallengeGuest(){
     const location = useLocation();
 
     return(
+        <>
+        
         <div className='challenge'>
-            <h3>{location.state.challenge}</h3>
+           <h4> {location.state.challenge} </h4>
         </div>
+        </>
     )
 }
 
