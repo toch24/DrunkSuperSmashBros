@@ -7,6 +7,8 @@ import TextPopup from './TextPopup'
 function WaitingRoomHost () {
     const [custom, setCustom] = useState(false);
     const [challenge, setChallenge] = useState('');
+    const [canPickChallenge, setcanPickChallenge] = useState(false);
+
     const history = useNavigate()
 
     const submitNew = (e) => {
@@ -30,7 +32,29 @@ function WaitingRoomHost () {
         history('/challenge', {state:{challenge: challenge}})
     }
 
-    if(localStorage.getItem('code') != null) {
+    socket.onmessage = (e) => {
+        let data = JSON.parse(e.data)
+        console.log(data)
+        if(data['event_type'] === 'all_chars_chosen'){
+            let canPick = JSON.parse(data['message'])
+            if(canPick){
+               setcanPickChallenge(true)
+            }
+        }
+    }
+
+    if(!canPickChallenge){
+        return(
+            <div className='after'>
+            <div>
+                <img className = 'loading' src={loading} alt="loading bar" />
+            </div>
+            
+            <h2>Waiting for players to pick their characters</h2>
+            </div>
+        )
+    }
+    else if(localStorage.getItem('code') != null && canPickChallenge) {
         return(
             <div className='after'> 
             <div>

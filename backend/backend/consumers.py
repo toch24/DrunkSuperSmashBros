@@ -25,7 +25,14 @@ class LobbyConsumer(WebsocketConsumer):
         if hasattr(self, 'player'):
             self.player.delete()
         if hasattr(self, 'room') and self.player.player_name == self.room.room_host:
-            #TODO: Currently this will kill the lobby, we need to send a disconnect to all players.
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                'type':'room_message',
+                'event_type':'end_lobby',
+                'message':'true'
+                }
+            )
             self.room.delete()
 
         if hasattr(self, 'room_group_name'):
@@ -179,6 +186,34 @@ class LobbyConsumer(WebsocketConsumer):
                 'message': "true"
                 }
             )
+
+        if(data[0] == "char_select"):
+            #Get the most recent version of the lobby. Could be unnecessary.
+            self.room = models.lobbies.objects.get(room_code = self.room.room_code)
+
+            #Update list of players with their choice
+            if self.room.players_playing is None:
+                self.room.players_playing = [str(data[1] + " " + self.player.player_name)]    
+            else:
+                self.readyPlayers = list(self.room.players_playing)
+                self.readyPlayers.append(str(data[1] + " " + self.player.player_name))
+                self.room.players_playing = self.readyPlayers
+
+            self.room.save()
+                
+            self.players = list(models.players.objects.filter(Q(is_playing = True) & Q(room_code = self.room)))
+            self.readyPlayers = list(self.room.players_playing)
+
+            #If every active player has picked a character.
+            if len(self.players) == len(self.readyPlayers):
+                async_to_sync(self.channel_layer.group_send)(
+                    self.room_group_name,
+                    {
+                    'type':'room_message',
+                    'event_type':'all_chars_chosen',
+                    'message': True
+                    }
+                )
 
         if(data[0] == "wait_join"):
             ready = False

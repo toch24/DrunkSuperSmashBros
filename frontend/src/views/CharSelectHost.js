@@ -19,6 +19,7 @@ function CharSelectHost(){
     const handleClick = (event) => {
         event.preventDefault()
         localStorage.setItem('char', event.target.name)
+        socket.send('char_select,'+event.target.name)
         history('/waitingroomhost')
 
 
