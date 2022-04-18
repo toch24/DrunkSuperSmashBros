@@ -1,7 +1,7 @@
 import React from 'react';
 import {useLocation} from 'react-router-dom'
 
-function Challenge(){
+function ChallengeGuest(){
     const location = useLocation();
 
     return(
@@ -12,4 +12,4 @@ function Challenge(){
 }
 
 
-export default Challenge
+export default ChallengeGuest

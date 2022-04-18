@@ -5,15 +5,15 @@ import socket from './socketConfig';
 
 
 function WaitingRoomGuest () {
-    const[ challenge, setChallenge ] = useState()
+    const[ challenge, setChallenge ] = useState('')
     const history = useNavigate()
 
     useEffect(() => {
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
-            if(data['event_type'] === 'challenge') // this is called after a winner is provided
+            if(data['event_type'] === 'challenge') 
                 setChallenge(data['message'])
-                history('/challenge', {state:{challenge: data['message']}})
+                history('/challengeguest', {state:{challenge: data['message']}})
             
         }
     

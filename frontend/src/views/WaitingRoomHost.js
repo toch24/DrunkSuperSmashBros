@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import socket from './socketConfig';
 import TextPopup from './TextPopup'
+import loading from '../images/808.gif'
 
 
 function WaitingRoomHost () {
@@ -10,6 +11,17 @@ function WaitingRoomHost () {
     const [canPickChallenge, setcanPickChallenge] = useState(false);
 
     const history = useNavigate()
+
+    socket.onmessage = (e) => {
+            let data = JSON.parse(e.data)
+            console.log(data)
+            if(data['event_type'] === 'all_chars_chosen'){
+                let canPick = JSON.parse(data['message'])
+                if(canPick){
+                   setcanPickChallenge(true)
+                }
+            }
+    }
 
     const submitNew = (e) => {
        socket.send("new_challenge")
@@ -21,27 +33,18 @@ function WaitingRoomHost () {
             socket.send('challenge,'+data['message']+',')
 
             //not sure why using state challenge it wont pass the challenge
-            history('/challenge', {state:{challenge: data['message']}})
+            history('/challengehost', {state:{challenge: data['message']}})
         
         
-    }
+        }
     }
 
     const submitCustom = (e) => {
         socket.send('challenge,'+challenge+',')
-        history('/challenge', {state:{challenge: challenge}})
+        history('/challengehost', {state:{challenge: challenge}})
     }
 
-    socket.onmessage = (e) => {
-        let data = JSON.parse(e.data)
-        console.log(data)
-        if(data['event_type'] === 'all_chars_chosen'){
-            let canPick = JSON.parse(data['message'])
-            if(canPick){
-               setcanPickChallenge(true)
-            }
-        }
-    }
+
 
     if(!canPickChallenge){
         return(
