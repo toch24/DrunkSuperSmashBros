@@ -1,18 +1,33 @@
 import React, {useState} from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import socket from './socketConfig';
 import TextPopup from './TextPopup'
 
 
 function WaitingRoomHost () {
     const [custom, setCustom] = useState(false);
     const [challenge, setChallenge] = useState('');
+    const history = useNavigate()
 
     const submitNew = (e) => {
-       
+       socket.send("new_challenge")
+       socket.onmessage = (e) => {
+        let data = JSON.parse(e.data)
+        if(data['event_type'] === 'new_challenge') // this is called after a winner is provided
+            console.log(data['message'])
+            setChallenge(data['message'])
+            socket.send('challenge,'+data['message']+',')
+
+            //not sure why using state challenge it wont pass the challenge
+            history('/challenge', {state:{challenge: data['message']}})
+        
+        
+    }
     }
 
     const submitCustom = (e) => {
-       console.log(challenge)
+        socket.send('challenge,'+challenge+',')
+        history('/challenge', {state:{challenge: challenge}})
     }
 
     if(localStorage.getItem('code') != null) {

@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.db.models import F
 import json
 from api import models
-import string
+import random
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 
@@ -199,6 +199,30 @@ class LobbyConsumer(WebsocketConsumer):
                     'message': ready
                     }
                 )
+
+        if(data[0] == "new_challenge"):
+            challenges = models.challenges.objects.filter(challenge_id=0).values()
+            challenges = challenges[0]['challenges']
+            challenge = random.choice(challenges)
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+            {
+                    'type':'room_message',
+                    'event_type':'new_challenge',
+                    'message': challenge
+                    }
+            )
+        
+        if(data[0] == 'challenge'):
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+            {
+                    'type':'room_message',
+                    'event_type':'challenge',
+                    'message': data[1]
+                    }
+            )
+        
 
 
 
