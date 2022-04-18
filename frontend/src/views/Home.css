@@ -51,6 +51,14 @@
     height: 50vh;
 }
 
+.text-popup{
+  background-color: aliceblue;
+  position: relative;
+  border-radius: 20px;
+  width: 50vh;
+  height: 10vh;
+}
+
 .close-button {
     float: right;
     margin-top: 7px;
@@ -169,4 +177,63 @@ transition: all 0.2s;
 
   .everyone:hover {
     background-color:#4095c6;
+  }
+
+  .end{
+    display:inline-block;
+   padding:0.3em 1.2em;
+   margin:0 0.3em 0.3em 0;
+  border-radius:2em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'SmashBros';
+  font-weight:300;
+  color:#FFFFFF;
+  background-color:red;
+  text-align:center;
+  transition: all 0.2s;
+    }
+  
+
+  .after{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  
+  .custom{
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 4vh;
+    border: 1px;
+    margin-bottom: 4vh;
+    opacity: 0.5;
+    background-color: rgb(238, 238, 238);
+ 
+  }
+
+  .img-loading{
+    margin-top: 80%;
+  
+  }
+
+  .bet-lose{
+    font-family: "SmashBros";
+    /* margin-top: 75px; */
+    /* font-size: xx-large; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    border: 2px dashed #251af1;
+  }
+
+  .bet-lose-img{
+      width: 200px;
+      padding-top: 30px;
+      mix-blend-mode: multiply;
   }

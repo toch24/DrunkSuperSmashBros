@@ -2,7 +2,7 @@ from telnetlib import TLS
 from tkinter.tix import TList
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
-from pymongo import MongoClient
+# from pymongo import MongoClient
 # from .. import api
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -11,6 +11,8 @@ import json
 #for random code generation
 import string
 import random
+from random import randrange
+from . import models
 
 
 
@@ -20,9 +22,9 @@ connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbr
 # db_name = DrunkSuperSmashBros
 # username = CIS4930
 
-my_client = MongoClient(connection_string)
-dbname = my_client['DrunkSuperSmashBros']
-col_name = dbname["test"]
+# my_client = MongoClient(connection_string)
+# dbname = my_client['DrunkSuperSmashBros']
+# col_name = dbname["test"]
 
 
 @csrf_exempt
@@ -35,6 +37,19 @@ def new_lobby(request):
         print(code)
 
 
+
+    return HttpResponse(200)
+
+@csrf_exempt
+def betting(request):
+
+    if request.method == "POST":
+        betFor = request.POST['betFor']
+        bet = request.POST['bet']
+        name = request.POST['name']
+        print(betFor)
+        print(bet)
+        print(name)
 
     return HttpResponse(200)
 
@@ -51,3 +66,16 @@ def get_char_data(request):
 
     return HttpResponse(json.dumps(characters))
 
+
+@csrf_exempt
+def get_rand_challenge(request):
+    if request.method == 'GET':
+        challenges_obj = models.challenges.objects.get(challenge_id = 1)
+        challenges_list = list(challenges_obj.challenges)
+        size = len(challenges_list)
+        index = randrange(size)
+        challenge = challenges_list[index]
+        print(challenges_list)
+        print(challenge)
+
+    return HttpResponse(json.dumps(challenge))

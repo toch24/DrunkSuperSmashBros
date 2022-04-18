@@ -1,5 +1,6 @@
 import string, random
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -7,7 +8,7 @@ from django.db import models
 def roomGuid():
     while True:
         roomCode = ''.join(random.choices(string.ascii_uppercase, k=5))
-        if Room.objects.filter(roomCode = roomCode).count() == 0:
+        if lobbies.objects.filter(room_code = roomCode).count() == 0:
             break
     return roomCode
 
@@ -32,27 +33,23 @@ def roomGuid():
 #   3. $ python manage.py migrate
 #  End with commiting the migration files
 
-
-class Room(models.Model):
-    roomCode = models.CharField(max_length=5, default=roomGuid, unique=True)
-    roomHost = models.CharField(max_length=5, default="none", unique=True)
-    numPlayers = models.IntegerField(null = False, default=1)
-
 class challenges(models.Model):
-    challenge_id = models.BigAutoField(primary_key=True)
-    challenge_str = models.CharField(max_length=150)
+    challenge_id = models.IntegerField(primary_key=True)
+    challenges = ArrayField(models.CharField(max_length=500), null=True)
 
 
 class lobbies(models.Model):
     room_id = models.BigAutoField(primary_key=True)
-    room_code = models.CharField(max_length=5)
+    room_code = models.CharField(max_length=5, default=roomGuid, unique=True)
     room_host = models.CharField(max_length=20)
+    numPlayers = models.IntegerField(null = False, default=1)
+    numBetted = models.IntegerField(null = False, default=0)
+    players_playing = ArrayField(models.CharField(max_length=500), null=True)
 
 
 class players(models.Model):
     player_id = models.BigAutoField(primary_key=True)
     room_code = models.ForeignKey(to=lobbies, on_delete=models.CASCADE)
     player_name = models.CharField(max_length=20)
-
-
-
+    is_playing = models.BooleanField(null = True)
+    bet_for = models.CharField(null = True, max_length=20)
