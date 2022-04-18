@@ -215,3 +215,20 @@ transition: all 0.2s;
  
   }
 
+  .bet-lose{
+    font-family: "SmashBros";
+    /* margin-top: 75px; */
+    /* font-size: xx-large; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    border: 2px dashed #251af1;
+  }
+
+  .bet-lose-img{
+      width: 200px;
+      padding-top: 30px;
+      mix-blend-mode: multiply;
+  }

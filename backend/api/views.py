@@ -11,6 +11,8 @@ import json
 #for random code generation
 import string
 import random
+from random import randrange
+from . import models
 
 
 
@@ -64,3 +66,16 @@ def get_char_data(request):
 
     return HttpResponse(json.dumps(characters))
 
+
+@csrf_exempt
+def get_rand_challenge(request):
+    if request.method == 'GET':
+        challenges_obj = models.challenges.objects.get(challenge_id = 1)
+        challenges_list = list(challenges_obj.challenges)
+        size = len(challenges_list)
+        index = randrange(size)
+        challenge = challenges_list[index]
+        print(challenges_list)
+        print(challenge)
+
+    return HttpResponse(json.dumps(challenge))
