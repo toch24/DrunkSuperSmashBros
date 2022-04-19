@@ -151,7 +151,7 @@ class LobbyConsumer(WebsocketConsumer):
             self.room = models.lobbies.objects.get(room_code = data[1])
 
             #Grab all players referencing the same room_code and not betting.
-            self.roomPlayers = list(models.players.objects.filter(Q(is_playing=False) & Q(room_code = self.room))) # is_playing temp set to False, change to True later
+            self.roomPlayers = list(models.players.objects.filter(Q(is_playing=True) & Q(room_code = self.room))) # is_playing temp set to False, change to True later
 
                
             async_to_sync(self.channel_layer.group_send)(
@@ -166,7 +166,7 @@ class LobbyConsumer(WebsocketConsumer):
         if(data[0] == "bet_for"):
             self.room = models.lobbies.objects.get(room_code = data[1])
             models.players.objects.filter(Q(player_name = data[2]) & Q(room_code = self.room)).update(bet_for=data[3])
-            models.lobbies.objects.filter(Q(room_code = data[1])).update(numBetted=F('numBetted')+1)
+            # models.lobbies.objects.filter(Q(room_code = data[1])).update(numBetted=F('numBetted')+1)
              
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
@@ -174,6 +174,32 @@ class LobbyConsumer(WebsocketConsumer):
                 'type':'room_message',
                 'event_type':'wait_bet',
                 'message': data[2]+" betted for "+data[3]
+                }
+            )
+
+        if(data[0] == "bet_challenge"):
+            check = False
+            self.bet = ""
+            self.player = models.players()
+            self.room = models.lobbies.objects.get(room_code = data[1])
+
+            #Grab all players referencing the same room_code and not betting.
+            self.player = models.players.objects.filter(Q(player_name = data[2]) & Q(room_code = self.room))
+
+            for p in self.player:
+                self.bet = p.bet_for
+
+            print("data[3]: "+data[3])
+            print("self.bet: "+self.bet)
+            if data[3] == self.bet:
+                check=True
+
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                'type':'room_message',
+                'event_type':'bet_challenge',
+                'message':check
                 }
             )
 
