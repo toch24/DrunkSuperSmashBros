@@ -257,6 +257,33 @@ class LobbyConsumer(WebsocketConsumer):
                     'message': data[1]
                     }
             )
+
+        if(data[0] == 'player_won'):
+            #Get the most recent version of the lobby. Could be unnecessary.
+            self.room = models.lobbies.objects.get(room_code = self.room.room_code)
+
+            #data clean up/reset.
+            playersInGame = models.players.objects.filter(room_code_id = self.room)
+            for player in playersInGame:
+                player.bet_for = None
+                player.is_playing = None
+                player.save()
+            
+            self.room.players_playing = None
+            self.room.numPlayers = 1
+            self.room.numBetted = 0
+            self.room.save()
+
+            playerName = models.players.objects.get(player_id = data[1])
+
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+            {
+                    'type':'room_message',
+                    'event_type':'player_won',
+                    'message': playerName.player_name
+                    }
+            )
         
 
 

@@ -26,3 +26,13 @@ export async function get_rand_challenge(){
     
     return response.data
 }
+
+export async function get_player_data(room_code){
+    const response = await Axios.get(`${fetch_url}/get_player_data`, {
+        params: {
+            roomCode: room_code
+        }
+    })
+
+    return response.data
+}

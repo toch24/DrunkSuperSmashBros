@@ -13,6 +13,8 @@ import string
 import random
 from random import randrange
 from . import models
+from django.db.models import Q
+
 
 
 
@@ -79,3 +81,15 @@ def get_rand_challenge(request):
         print(challenge)
 
     return HttpResponse(json.dumps(challenge))
+
+@csrf_exempt
+def get_player_data(request):
+    if request.method == 'GET':
+        room = models.lobbies.objects.get(room_code = request.GET['roomCode'])
+        players_list = list(models.players.objects.filter(Q(is_playing = True) & Q(room_code_id = room)))
+
+        players_dict = {}
+        for player in players_list:
+            players_dict[player.player_id] = player.player_name
+
+    return HttpResponse(json.dumps(players_dict))
