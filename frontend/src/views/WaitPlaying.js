@@ -9,30 +9,36 @@ class WaitPlaying extends React.Component {
     constructor(props) {
         super(props);
         this.state = {code: localStorage.getItem('code'), message: "", name: this.props.params.name,
-                        finish_play: false, showChallenge: false}
+                        winner:"Yuki", showChallenge: false}
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
             console.log(data)
             if(data['event_type'] === 'finish_play') // this is called after a winner is provided
-                this.setState({finish_play: true})
+                this.setState({winner: JSON.parse(data['message'])})
+        }
+
+        this.setState({winner: "Yuki"}) //JUST FOR TESTING
+
+        console.log("Before if "+ this.state.winner)
+        if (this.state.winner != "") {
+            console.log("In if")
+            socket.send('bet_challenge,'+this.state.code+','+this.state.name+','+this.state.winner)
+            socket.onmessage = (e) => {
+            let data = JSON.parse(e.data)
+            console.log(data)
+            if(data['event_type'] === 'bet_challenge'){ // this is called after a winner is provided
+                let win = JSON.parse(data['message'])
+                if (!win)
+                    // window.location.assign("/betting")
+                    this.props.navigate(`/betchallenge/${this.props.params.name}`);
+                else
+                    this.props.navigate(`/betwin/${this.props.params.name}`);
+            }
+            }
         }
     }
 
     render(){
-        // ADD CODE HERE WHEN finish_play is true
-        // socket.send('bet_challenge,'+this.state.code+','+this.state.name)
-        // socket.onmessage = (e) => {
-        //     let data = JSON.parse(e.data)
-        //     console.log(data)
-        //     if(data['event_type'] === 'bet_challenge'){ // this is called after a winner is provided
-        //         let win = JSON.parse(data['message'])
-        //         if (win)
-        //             // window.location.assign("/betting")
-        //             this.props.navigate(`/betchallenge/${this.props.params.name}`);
-        //         else
-        //             this.props.navigate(`/betwin/${this.props.params.name}`);
-        //     }
-        // }
         return (
             <div className='wait-playing'>
                 <div className='wait-playing'>
