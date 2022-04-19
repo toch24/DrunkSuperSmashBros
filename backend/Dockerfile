@@ -1,20 +1,22 @@
-FROM ubuntu:20.04
-ADD . /app
-WORKDIR /app
+# pull official base image
+FROM python:3.8.3
 
-RUN apt-get update -y
-RUN apt-get install software-properties-common -y
-RUN add-apt-repository ppa:deadsnakes/ppa
-RUN apt-get install python3.8 -y
-RUN apt-get install python3-pip -y
-RUN python3.8 -m pip install --upgrade setuptools
-RUN python3.8 -m pip install psycopg2-binary
-RUN python3.8 -m pip install --upgrade pip wheel
-RUN apt-get install python3-dev
-RUN python3.8 -m pip install backports.zoneinfo
-RUN apt-get install python3-tk -y
-RUN python3.8 -m pip install -r requirements.txt
+# set work directory
+WORKDIR /usr/src/app
 
-RUN apt-get install ufw -y
-RUN ufw allow 8080
-EXPOSE 8080
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# install dependencies
+COPY ./requirements.txt .
+RUN pip install --no-cache --upgrade pip
+RUN pip install --no-cache -r requirements.txt
+RUN pip install --no-cache gunicorn
+
+# copy django project
+COPY . .
+COPY .env ./api
+
+# run entrypoint.sh
+#ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

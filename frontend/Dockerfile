@@ -1,23 +1,17 @@
-FROM node:13.12.0-alpine
+# pull official base image
+FROM node:15.8.0-alpine
 
-# set working directory
-WORKDIR /app
+# set work directory
+WORKDIR /usr/src/app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+COPY ./package.json .
+COPY ./package-lock.json .
 
-# install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+RUN npm install -g serve
+RUN npm install
 
-# add app
-COPY . ./
+# copy react project
+COPY . .
 
-EXPOSE 3000
-
-# start app
-CMD ["npm", "start"]
-
-#https://mherman.org/blog/dockerizing-a-react-app/
+# build react project
+RUN npm run build

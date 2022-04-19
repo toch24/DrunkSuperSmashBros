@@ -12,7 +12,7 @@ __pycache__/
 # Failed to connect to bus: Host is down
 # Then run on a separate terminal and then run normally:
 # $ sudo dockerd
-
+backups
 
 # C extensions
 *.so
@@ -144,3 +144,4 @@ dmypy.json
 node_modules/
 jspm_packages/
 /backend/get-docker.sh
+/backups/
