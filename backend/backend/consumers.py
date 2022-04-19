@@ -167,7 +167,10 @@ class LobbyConsumer(WebsocketConsumer):
             self.room = models.lobbies.objects.get(room_code = data[1])
             models.players.objects.filter(Q(player_name = data[2]) & Q(room_code = self.room)).update(bet_for=data[3])
             # models.lobbies.objects.filter(Q(room_code = data[1])).update(numBetted=F('numBetted')+1)
-             
+            test = models.players.objects.filter(Q(player_name = data[2]) & Q(room_code = self.room))
+            print(test)
+            for t in test:
+                print(t.bet_for)
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
                 {
@@ -288,17 +291,17 @@ class LobbyConsumer(WebsocketConsumer):
             #Get the most recent version of the lobby. Could be unnecessary.
             self.room = models.lobbies.objects.get(room_code = self.room.room_code)
 
-            #data clean up/reset.
-            playersInGame = models.players.objects.filter(room_code_id = self.room)
-            for player in playersInGame:
-                player.bet_for = None
-                player.is_playing = None
-                player.save()
+            # #data clean up/reset.
+            # playersInGame = models.players.objects.filter(room_code_id = self.room)
+            # for player in playersInGame:
+            #     player.bet_for = None
+            #     player.is_playing = None
+            #     player.save()
             
-            self.room.players_playing = None
-            self.room.numPlayers = 1
-            self.room.numBetted = 0
-            self.room.save()
+            # self.room.players_playing = None
+            # self.room.numPlayers = 1
+            # self.room.numBetted = 0
+            # self.room.save()
 
             playerName = models.players.objects.get(player_id = data[1])
 
