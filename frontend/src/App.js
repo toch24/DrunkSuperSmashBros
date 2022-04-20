@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1 className='header'>DRUNK SUPER SMASH BROS</h1>
+      <h1 className='header'>Super Smashed </h1>
         <div className="card">
       <Router>
         <Routes>
