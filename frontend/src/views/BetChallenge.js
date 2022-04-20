@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import betlose from '../images/BetLose.gif'
 import { get_rand_challenge } from '../Utilities/FetchFunction';
+import socket from './socketConfig';
 
 function BetChallenge () {
     const [ challenges, setChallenges ] = useState("")
@@ -16,6 +17,14 @@ function BetChallenge () {
 
     
     }, "");
+
+    socket.onmessage = (e) => {
+        let data = JSON.parse(e.data)
+        if(data['event_type'] === 'end_lobby'){
+            window.location.assign("/")
+        }
+
+    }
 
     return( <div>
                 <div className='bet-lose'>

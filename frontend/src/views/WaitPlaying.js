@@ -10,6 +10,17 @@ class WaitPlaying extends React.Component {
         super(props);
         this.state = {code: localStorage.getItem('code'), message: "", name: this.props.params.name,
                         winner:"", showChallenge: false}
+
+        // var navi = [this.props.params.name];
+        // if (localStorage.getItem('navigate') == null)
+        //     localStorage.setItem("navigate", JSON.stringify(navi));
+        // else {
+        //     navi = JSON.parse(localStorage.getItem("navigate"));
+        //     navi.push(this.props.params.name)
+        //     localStorage.setItem("navigate", JSON.stringify(navi));
+        // }
+
+        // console.log(JSON.parse(localStorage.getItem("navigate")))
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
             console.log(data)
@@ -17,18 +28,19 @@ class WaitPlaying extends React.Component {
                 let win = data['message']
                 console.log("in set win "+win)
                 this.setState({winner: win})
-                console.log("After setstate if "+ this.state.winner)
-                console.log("this.state.code "+ this.state.code)
                 socket.send('bet_challenge,'+this.state.code+','+this.state.name+','+this.state.winner)
                 socket.onmessage = (e) => {
                     let data = JSON.parse(e.data)
                     console.log(data)
                     if(data['event_type'] === 'bet_challenge'){ // this is called after a winner is provided
                         let win = JSON.parse(data['message'])
-                        if (!win)
-                            // window.location.assign("/betting")
+                        console.log(win)
+                        if (!win){
+                            console.log("NOT WIN")
                             this.props.navigate(`/betchallenge/${this.props.params.name}`);
+                        }
                         else
+                        console.log("WIN")
                             this.props.navigate(`/betwin/${this.props.params.name}`);
                     }
                     }

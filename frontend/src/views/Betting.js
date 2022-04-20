@@ -24,9 +24,11 @@ class Betting extends React.Component {
                 let betted_players = JSON.parse(data['message'])
                 this.setState({players: betted_players})
             }
-        }
 
-        console.log(this.state.players)
+            if(data['event_type'] === 'end_lobby'){
+                window.location.assign("/")
+            }
+        }
     }
 
     handleChange(event) {
@@ -60,6 +62,7 @@ class Betting extends React.Component {
                 if(data['event_type'] === 'bet_for'){
                     let betted_players = JSON.parse(data['message'])
                     console.log(betted_players)
+                    // this.props.navigate(`/waitplaying/${this.props.params.name}`)
                 }
             }
 
