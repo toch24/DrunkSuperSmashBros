@@ -2,6 +2,14 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project Description
+
+This application allows users to interact with each other by sending messages using websockets whenever important events take place. The main problem we are trying to solve is when to send and receive messages to allow users to communicate with each other. For example, when a player joins the lobby, the lobby owner and all other players need to recieve a message about this event, and the new player's name needs to be displayed on all users' screen that are in the same lobby.
+
+## Python Packages
+
+Check requirements.txt for a list of all Python packages used
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -116,3 +124,12 @@ $ `$ docker build -t atunbetun/backend_dock .`
 From frontend directory
 
 $ `$ docker build -t atunbetun/frontend_dock .`
+
+## Extra Features Implemented
+
+## Separation of Work
+
+Tommy Chong - 
+Justin Mulder - 
+Hanyan Zhang (Yuki) - 
+Alberto de Saint Malo - 
