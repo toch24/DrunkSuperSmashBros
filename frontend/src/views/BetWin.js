@@ -11,6 +11,14 @@ function BetWin () {
         if(data['event_type'] === 'end_lobby'){
             window.location.assign("/")
         }
+        else if(data['event_type'] === 'everyone_ready'){
+            socket.send('reset,'+sessionStorage.getItem('name')+',')
+            history('/afterlobbyguest', {
+                state: {
+                    name: sessionStorage.getItem('name')
+                }
+            });
+        }
 
     }
 
