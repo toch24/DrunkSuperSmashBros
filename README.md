@@ -1,109 +1,20 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Project Description
-
-This application allows users to interact with each other by sending messages using websockets whenever important events take place. The main problem we are trying to solve is when to send and receive messages to allow users to communicate with each other. For example, when a player joins the lobby, the lobby owner and all other players need to recieve a message about this event, and the new player's name needs to be displayed on all users' screen that are in the same lobby.
-
-## Python Packages
-
-Check requirements.txt for a list of all Python packages used
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-### BACKEND ###
-Consider using a venv to store the requirements
-
-`$ python -m venv venv`
-
-`$ source venv/bin/activate`
-
-`$ pip install -r requirements.txt`
-
-`$ python manage.py runserver 8080`
+### DETAILS ON SUPER SMASHED ###
+A simple drinking game where players can create a lobby and everyone that is playing Smash Bros at the same time can join the same lobby. The host can then join the game while the other players can choose either to join the game, meaning they are playing in the game or betting to see who wins the current game. Players that choose to join the game will be able to select the character they are playing as and then the same challenge will be given to all the players that are currently playing the game. Host picks the challenge either randomly or customizes it. Betters can choose who they think is going to win the current game and if they lose, there's a challenge for them. If they win, they get to be free. All players must return to the lobby once the game is done, players playing will do this automatically while betters will have to press the "Return to Lobby" button. Once everyone is back in the lobby, a new round of game can start.
 
 
-### FRONTEND ###
-If you are having issues running the front-end consider reinstalling npm and nodejs from scratch
-https://stackoverflow.com/questions/70390777/error-in-module-createrequire-is-not-a-function
-"0
+### HOW TO INSTALL AND RUN APP IN LOCAL HOST ###
+FOR THE BACKEND:
+1. cd backend
+2. pip install -r requirements.txt
+3. python manage.py runserver 8080 => This will run the backend server in port 8080 (DO NOT CHANGE PORT)
 
-Try completely updating the newest, stable version of both nodejs and npm"
+FOR THE FRONTEND:
+1. cd frontend
+2. npm install
+3. npm start
 
-`$ cd frontend`
 
-`$ npm start`
 
-### DEPENDENCIES  ###
-react-router-dom
-pymongo
-axios
 
 
 ## DOCKER
@@ -129,7 +40,7 @@ $ `$ docker build -t atunbetun/frontend_dock .`
 
 ## Separation of Work
 
-Tommy Chong - 
+Tommy Chong - Connection of the socket in the backend to the frontend, was able to establish an ongoing communication for the socket between the backend and the frontend. Worked on afterlobby, beforeplaying, charselect, joinform, createform, and waitingroom components in the frontend. Worked on call to the API to get Smash characters data in the backend to the frontend. Created challenges in the database.
 Justin Mulder - 
 Hanyan Zhang (Yuki) - 
 Alberto de Saint Malo - 
