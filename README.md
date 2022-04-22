@@ -49,6 +49,8 @@ $ `$ docker build -t atunbetun/frontend_dock .`
 **Justin Mulder** 
 
 **Hanyan Zhang (Yuki)** 
+- Worked on part of the lobby design including allowing popups for create lobby and player joining. 
+- Worked on the betting system that let user who are not participating in the current round to bet for other players by sending data to the backend and interacts with the models.
 
 **Alberto de Saint Malo** 
 - Set up Google Cloud PostreSQL service and connected it with Django
