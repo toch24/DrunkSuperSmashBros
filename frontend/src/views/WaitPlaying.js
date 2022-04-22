@@ -8,7 +8,7 @@ import {withRouter} from './withRouter';
 class WaitPlaying extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {code: localStorage.getItem('code'), message: "", name: this.props.params.name,
+        this.state = {code: sessionStorage.getItem('code'), message: "", name: this.props.params.name,
                         winner:"", showChallenge: false}
 
         // var navi = [this.props.params.name];

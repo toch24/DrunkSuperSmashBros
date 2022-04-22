@@ -11,7 +11,7 @@ function ChallengeHost(){
     let history = useNavigate()
     
     useEffect(() => {
-        get_player_data(localStorage.getItem('code'))
+        get_player_data(sessionStorage.getItem('code'))
         .then(res => {
             setPlayers(res)
         })
@@ -24,9 +24,10 @@ function ChallengeHost(){
     function handleClick(key){
         console.log(key)
         socket.send('player_won,'+key)
+        socket.send('reset,'+sessionStorage.getItem('name')+',')
         history('/afterlobbyhost', {
             state: {
-                name: localStorage.getItem('name')
+                name: sessionStorage.getItem('name')
             }
         });
     }

@@ -23,7 +23,7 @@ function AfterLobbyHost() {
         history(`/beforebetting/${location.state.name}`)
     }
 
-    if(localStorage.getItem('code') != null) {
+    if(sessionStorage.getItem('code') != null) {
 
             return(
       

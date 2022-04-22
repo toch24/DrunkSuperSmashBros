@@ -7,7 +7,7 @@ import {withRouter} from './withRouter';
 class BeforePlayingHost extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {name: this.props.params.name, code: localStorage.getItem('code'), isSubmited: false};
+        this.state = {name: this.props.params.name, code: sessionStorage.getItem('code'), isSubmited: false};
         // let history = useNavigate();
         socket.send('wait_join,'+this.state.code+','+this.state.name)
         console.log(this.state.code);

@@ -62,7 +62,7 @@ function WaitingRoomHost () {
 
         )
     }
-    else if(localStorage.getItem('code') != null && canPickChallenge) {
+    else if(sessionStorage.getItem('code') != null && canPickChallenge) {
         return(
             <div className='after'> 
             <div>

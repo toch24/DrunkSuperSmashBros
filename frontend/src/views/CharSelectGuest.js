@@ -18,8 +18,8 @@ function CharSelectGuest(){
 
     const handleClick = (event) => {
         event.preventDefault()
-        localStorage.setItem('char', event.target.name)
-        socket.send('char_select,'+event.target.name)
+        sessionStorage.setItem('char', event.target.name)
+        socket.send('char_select,'+event.target.name+','+sessionStorage.getItem('name')+',')
         history('/waitingroomguest')
 
 

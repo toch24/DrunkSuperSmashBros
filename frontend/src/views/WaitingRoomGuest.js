@@ -20,7 +20,7 @@ function WaitingRoomGuest () {
     
     }, []);
 
-    if(localStorage.getItem('code') != null) {
+    if(sessionStorage.getItem('code') != null) {
         return(
             <>
             

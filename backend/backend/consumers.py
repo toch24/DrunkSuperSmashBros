@@ -1,4 +1,5 @@
 # from asyncio.windows_events import NULL
+from asyncio.windows_events import NULL
 from cgitb import text
 from unittest import result
 from django.db.models import Q
@@ -234,10 +235,11 @@ class LobbyConsumer(WebsocketConsumer):
 
             #Update list of players with their choice
             if self.room.players_playing is None:
-                self.room.players_playing = [str(data[1] + " " + self.player.player_name)]    
+           
+                self.room.players_playing = [str(data[1] + " " + data[2])]    
             else:
                 self.readyPlayers = list(self.room.players_playing)
-                self.readyPlayers.append(str(data[1] + " " + self.player.player_name))
+                self.readyPlayers.append(str(data[1] + " " + data[2]))
                 self.room.players_playing = self.readyPlayers
 
             self.room.save()
@@ -326,7 +328,13 @@ class LobbyConsumer(WebsocketConsumer):
                     }
             )
         
-
+        #resets players_playing, is_playing, bet_for for a new round of game
+        if(data[0] == 'reset'):
+            self.room = models.lobbies.objects.get(room_code = self.room.room_code)
+            self.room.players_playing = None
+            models.players.objects.filter(Q(player_name = data[1]) & Q(room_code = self.room)).update(is_playing = None)
+            models.players.objects.filter(Q(player_name = data[1]) & Q(room_code = self.room)).update(bet_for=None)
+            self.room.save()
 
 
     #NOT FINISHED: this for now just deserializes the json message. This function will parse and route to functions based on the message contents.

@@ -19,7 +19,7 @@ function CreateLobbyForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         //saving name in local storage for future use
-        localStorage.setItem('name', state.name)
+        sessionStorage.setItem('name', state.name)
         
         //establishing connection to a new websocket, the url used most likely has to change when publishing the website.
         let s = get_code()
@@ -68,9 +68,9 @@ function CreateLobbyForm() {
                 let data = JSON.parse(e.data)
                 console.log(data)
                 if(data['event_type'] === 'lobby_code'){
-                    
-                    localStorage.setItem('code', data['message'])
-                    localStorage.setItem('host', true)
+                   
+                    sessionStorage.setItem('code', data['message'])
+                    sessionStorage.setItem('host', true)
                     setState({newCode: data['message']})
                 }
                 else if(data['event_type'] === 'player_joined'){

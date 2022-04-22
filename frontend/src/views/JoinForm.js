@@ -18,7 +18,7 @@ function JoinForm() {
     const handleSubmit = (e)  => {
         e.preventDefault();
 
-        localStorage.setItem('name', state.name);
+        sessionStorage.setItem('name', state.name);
 
         socket.send('join,'+state.code+','+state.name)
         
@@ -26,9 +26,9 @@ function JoinForm() {
             let data = JSON.parse(e.data)
             console.log(data)
             if(data['event_type'] === 'player_joined'){
-                localStorage.setItem('code', state.code)
-                localStorage.setItem('host', false)
-                console.log(localStorage.getItem('host'))
+                sessionStorage.setItem('code', state.code)
+                sessionStorage.setItem('host', false)
+                console.log(sessionStorage.getItem('host'))
                 let joined_players = JSON.parse(data['message'])
                 setState({players: joined_players})
                 setState({isSubmitted: true})

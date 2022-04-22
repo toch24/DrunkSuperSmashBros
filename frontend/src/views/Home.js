@@ -10,10 +10,7 @@ import JoinForm from './JoinForm';
 function Home(){
     const [lobbyPopup, setLobbyPopup] = useState(false);
     const [joinPopup, setJoinPopup] = useState(false);
-    localStorage.removeItem('code')
-    localStorage.removeItem('name')
-    localStorage.removeItem('host')
-    
+    sessionStorage.clear()
 
     return(
         <>

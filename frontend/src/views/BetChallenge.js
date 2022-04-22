@@ -26,6 +26,17 @@ function BetChallenge () {
 
     }
 
+    //localstorage will not work as intended if the game is being played in the same browser
+    const handleBack = (e)  => {
+        e.preventDefault();
+        socket.send('reset,'+sessionStorage.getItem('name')+',')
+        history('/afterlobbyguest', {
+            state: {
+                name: sessionStorage.getItem('name')
+            }
+        });
+    }
+
     return( <div>
                 <div className='bet-lose'>
                     You lose! <br/>
@@ -34,6 +45,9 @@ function BetChallenge () {
                 </div>
                 <div>
                     <img className = 'bet-lose-img' src={betlose} alt=" " />
+                </div>
+                <div>
+                    <button className='everyone' type="submit" onClick={handleBack} >Back to Lobby</button>
                 </div>
             </div>
             

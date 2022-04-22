@@ -12,9 +12,10 @@ function ChallengeGuest(){
         let data = JSON.parse(e.data)
         console.log(data)
         if(data['event_type'] === 'player_won')
+        socket.send('reset,'+sessionStorage.getItem('name')+',')
             history('/afterlobbyguest', {
                 state: {
-                    name: localStorage.getItem('name')
+                    name: sessionStorage.getItem('name')
                 }
             })
     }
