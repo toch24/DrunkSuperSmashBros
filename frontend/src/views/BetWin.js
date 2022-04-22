@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import socket from './socketConfig';
+import Win from '../images/Win.gif'
 
 function BetWin () {
     let history = useNavigate()
@@ -29,6 +30,10 @@ function BetWin () {
         
             <div className='bet-win'>
                 You won the bet!
+            </div>
+            
+            <div>
+                    <img className = 'bet-lose-img' src={Win} alt=" " />
             </div>
 
             <div>
