@@ -1,9 +1,12 @@
 # docker/backend/Dockerfile
-
-FROM python:3.8.3-alpine
+#https://saasitive.com/tutorial/docker-compose-django-react-nginx-let-s-encrypt/
+FROM python:3.8.3-slim
 
 WORKDIR /app
 ADD ./backend/requirements.txt /app/backend/
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update \
     && apt-get -y install libpq-dev gcc \
