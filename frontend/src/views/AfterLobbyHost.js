@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
 import socket from './socketConfig'
 import { useNavigate } from 'react-router-dom'
@@ -8,7 +8,6 @@ function AfterLobbyHost() {
 
     const history = useNavigate();
     const location = useLocation();
-    console.log(location.state.name)
 
     const handleJoin = (e) => {
         history(`/beforeplayinghost/${location.state.name}`)
@@ -17,10 +16,6 @@ function AfterLobbyHost() {
     const handleEnd = (e) => {
         socket.send('end_lobby,')
         window.location.assign("/")
-    }
-
-    const handleBet = (e) => {
-        history(`/beforebetting/${location.state.name}`)
     }
 
     if(sessionStorage.getItem('code') != null) {

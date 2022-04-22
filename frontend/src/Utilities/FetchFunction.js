@@ -1,8 +1,6 @@
 import Axios from "axios";
 import {fetch_url} from "../index";
 
-
-
 export async function post_data(body, route) {
     Axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     Axios.defaults.xsrfCookieName = "csrftoken";

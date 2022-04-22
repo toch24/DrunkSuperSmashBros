@@ -1,6 +1,5 @@
 import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import loading from '../images/808.gif'
+import { useNavigate } from 'react-router-dom';
 import socket from './socketConfig';
 
 function BetWin () {

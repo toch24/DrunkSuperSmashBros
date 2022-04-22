@@ -8,25 +8,9 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
 import json
-#for random code generation
-import string
-import random
 from random import randrange
 from . import models
 from django.db.models import Q
-
-
-
-
-
-connection_string = 'mongodb+srv://CIS4930:DrunkSuperSmashBros@drunksupersmashbros.820dx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-# Password = DrunkSuperSmashBros
-# db_name = DrunkSuperSmashBros
-# username = CIS4930
-
-# my_client = MongoClient(connection_string)
-# dbname = my_client['DrunkSuperSmashBros']
-# col_name = dbname["test"]
 
 
 @csrf_exempt

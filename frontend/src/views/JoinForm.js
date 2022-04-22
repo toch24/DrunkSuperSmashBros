@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useReducer } from 'react';
+import { useReducer } from 'react';
 import "./Home.css";
 import loading from "../images/808.gif"
 import socket from './socketConfig';
@@ -28,13 +28,11 @@ function JoinForm() {
             if(data['event_type'] === 'player_joined'){
                 sessionStorage.setItem('code', state.code)
                 sessionStorage.setItem('host', false)
-                console.log(sessionStorage.getItem('host'))
                 let joined_players = JSON.parse(data['message'])
                 setState({players: joined_players})
                 setState({isSubmitted: true})
             }
             if(data['event_type'] === 'everyone_in'){
- //               window.location.assign("/afterlobby")
                 history('/afterlobbyguest', {
                     state: {
                         name: state.name

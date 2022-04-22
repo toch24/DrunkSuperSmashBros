@@ -22,7 +22,6 @@ function ChallengeHost(){
     }
 
     function handleClick(key){
-        console.log(key)
         socket.send('player_won,'+key)
         socket.send('reset,'+sessionStorage.getItem('name')+',')
         history('/afterlobbyhost', {
@@ -35,7 +34,6 @@ function ChallengeHost(){
     if(!gameDone){
         return(
             <>
-            
             <div className='challenge'>
                 <h4>{location.state.challenge}</h4>
             </div>

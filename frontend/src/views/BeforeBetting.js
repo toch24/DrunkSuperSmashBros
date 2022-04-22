@@ -10,8 +10,7 @@ class WaitBetting extends React.Component {
         this.state = {name: this.props.params.name, code: sessionStorage.getItem('code'), isSubmited: false};
         // let history = useNavigate();
         socket.send('wait_bet,'+this.state.code+','+this.state.name)
-        console.log(this.state.code);
-        console.log(this.props.params);
+
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
             console.log(data)
@@ -19,33 +18,13 @@ class WaitBetting extends React.Component {
                 let ready = JSON.parse(data['message'])
                 console.log(ready)
                 if (ready)
-                    // window.location.assign("/betting")
                     this.props.navigate(`/betting/${this.props.params.name}`);
                 else
                     console.log("Waiting...")
             }
         }
-        // this.handleChange = this.handleChange.bind(this);
-        // this.handleSubmit = this.handleSubmit.bind(this);
+
     }
-
-    // handleSocket(event) {
-    //     console.log("TESTTTtTTTTTT")
-    //     socket.send('wait_bet,'+this.state.code+','+this.state.name)
-
-    //     socket.onmessage = (e) => {
-    //         let data = JSON.parse(e.data)
-    //         console.log(data)
-    //         if(data['event_type'] === 'wait_bet'){
-    //             let everyone_in = JSON.parse(data['message'])
-    //             console.log(everyone_in)
-    //             if (everyone_in)
-    //                 window.location.assign("/betting")
-    //             else
-    //                 console.log("Waiting...")
-    //         }
-    //     }
-    // }
 
     render() {
         return (

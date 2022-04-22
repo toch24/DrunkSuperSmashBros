@@ -1,6 +1,5 @@
-import React, {useCallback, useEffect, useState, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import { useNavigate } from 'react-router-dom'
-import { post_data,} from '../Utilities/FetchFunction';
 import "./Home.css";
 import loading from "../images/808.gif"
 import socket from "./socketConfig"
@@ -12,7 +11,6 @@ function CreateLobbyForm() {
 
     const handleChange = (e) => {
         e.preventDefault()
-        console.log("change occur");
         setState({name: e.target.value});
     }
 
@@ -34,16 +32,6 @@ function CreateLobbyForm() {
             setState({isSubmitted: false})
         }
 
-
-/*
-        //creating form to send data to the backend
-       let form_data = new FormData()
-       let keys = Object.keys(state)
-       keys.forEach(key => {
-           form_data.append(key, state[key])
-       })
-       post_data(form_data, "new_lobby") 
-        */
     }
 
     const handleIn = (e) => {
@@ -68,13 +56,11 @@ function CreateLobbyForm() {
                 let data = JSON.parse(e.data)
                 console.log(data)
                 if(data['event_type'] === 'lobby_code'){
-                   
                     sessionStorage.setItem('code', data['message'])
                     sessionStorage.setItem('host', true)
                     setState({newCode: data['message']})
                 }
                 else if(data['event_type'] === 'player_joined'){
-                    console.log(data['message'])
                     let joined_players = JSON.parse(data['message'])
                     setState({players: joined_players})
 

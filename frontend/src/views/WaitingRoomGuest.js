@@ -12,7 +12,6 @@ function WaitingRoomGuest () {
         socket.onmessage = (e) => {
             let data = JSON.parse(e.data)
             if(data['event_type'] === 'challenge'){
-                console.log("am i here")
                 setChallenge(data['message'])
                 history('/challengeguest', {state:{challenge: data['message']}})
             }
