@@ -28,7 +28,7 @@ services:
     build: ./nginx
     restart: unless-stopped
     ports:
-      - 80:80
+      - 1337:80
     volumes:
       - static:/usr/src/app/static
       - media:/usr/src/app/media
