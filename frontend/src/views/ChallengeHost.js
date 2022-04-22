@@ -51,14 +51,14 @@ function ChallengeHost(){
                     <h4>{location.state.challenge}</h4>
                 </div>
 
-                <div className = "char-list">
-                    <div className="scroller">
-                        <h2>SELECT A CHARACTER:</h2>
-                        { Object.entries(players).map(([key, val]) =>
-                            <div className="chars" name={key} onClick={e => handleClick(key)}>
-                                <div name={key}>{key} {val}</div>
-                            </div>
-                        )}
+                <div className="scroller">
+                    <h2>SELECT A WINNER:</h2>
+                    <div className='player-list'>
+                    { Object.entries(players).map(([key, val]) =>
+                        <div className='player' name={key} onClick={e => handleClick(key)}>
+                            <div name={key}>{val}</div>
+                        </div>
+                    )}
                     </div>
                 </div>
             </div>

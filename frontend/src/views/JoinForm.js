@@ -32,12 +32,16 @@ function JoinForm() {
                 setState({players: joined_players})
                 setState({isSubmitted: true})
             }
-            if(data['event_type'] === 'everyone_in'){
+            else if(data['event_type'] === 'everyone_in'){
                 history('/afterlobbyguest', {
                     state: {
                         name: state.name
                     }
                 })
+            }
+            else if(data['event_type'] === 'invalid_name'){
+                setState({errorCode: data['message']})
+                setState({name: ''})
             }
         }
     }
@@ -72,6 +76,8 @@ function JoinForm() {
                 <input className='textBox' type="text" name='code' value={state.code} onChange={handleChange}/>
                 <br/> <br/>
                 <input className='my-submit' type="submit" onClick={handleSubmit} value="Join Lobby"/>
+                <br/><br/>
+                <p>{state.errorCode}</p>
                 </>
             )
         }

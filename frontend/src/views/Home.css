@@ -237,3 +237,26 @@ transition: all 0.2s;
       padding-top: 30px;
       mix-blend-mode: multiply;
   }
+
+  .player-list{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .player{
+    display: inline-block;
+    margin: 5px auto;
+    padding: 10px 10px;
+    cursor: pointer;
+    min-width: 200px;
+    background: #4eb5f1;
+    border-radius: 8px;
+    font-family: 'SmashBros';
+    font-weight: 300;
+    transition: all 0.2s;
+    color:#FFFFFF;
+  }
+
+  .player:hover {
+    background:#4095c6;
+  }

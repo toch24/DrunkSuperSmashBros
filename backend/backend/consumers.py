@@ -89,11 +89,20 @@ class LobbyConsumer(WebsocketConsumer):
 
 
         if(data[0] == "join"):
-            self.player = models.players()
-            self.player.player_name = data[2]
             self.room = models.lobbies.objects.get(room_code = data[1])
-            self.player.room_code = self.room
             self.room_group_name = self.room.room_code
+            
+            similarNamePlayers = models.players.objects.filter(Q(room_code = self.room) & Q(player_name = data[2]))
+            if len(similarNamePlayers) > 0:
+                self.send(text_data=json.dumps({
+                    'event_type':"invalid_name",
+                    'message':"This name already exists in the lobby, please pick a different one."
+                }))
+                return
+
+            self.player = models.players()
+            self.player.room_code = self.room
+            self.player.player_name = data[2]
             #Save player to db.
             self.player.save()
 
