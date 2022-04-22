@@ -40,7 +40,18 @@ $ `$ docker build -t atunbetun/frontend_dock .`
 
 ## Separation of Work
 
-Tommy Chong - Connection of the socket in the backend to the frontend, was able to establish an ongoing communication for the socket between the backend and the frontend. Worked on afterlobby, beforeplaying, charselect, joinform, createform, and waitingroom components in the frontend. Worked on call to the API to get Smash characters data in the backend to the frontend. Created challenges in the database.
-Justin Mulder - 
-Hanyan Zhang (Yuki) - 
-Alberto de Saint Malo - 
+**Tommy Chong** 
+- Connection of the socket in the backend to the frontend
+- was able to establish an ongoing communication for the socket between the backend and the frontend. 
+- Worked on afterlobby, beforeplaying, charselect, joinform, createform, and waitingroom components in the frontend. 
+- Worked on call to the API to get Smash characters data in the backend to the frontend. Created challenges in the database.
+
+**Justin Mulder** 
+
+**Hanyan Zhang (Yuki)** 
+
+**Alberto de Saint Malo** 
+- Set up Google Cloud PostreSQL service and connected it with Django
+- Created Django models to serve the backend in order to handle lobby creation logio, player joining lobbies, challenge storage
+- Worked on Dockerizing the Webapp with Docker containers:
+- 
