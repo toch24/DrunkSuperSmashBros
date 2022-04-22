@@ -33,15 +33,17 @@ class WaitPlaying extends React.Component {
                     let data = JSON.parse(e.data)
                     console.log(data)
                     if(data['event_type'] === 'bet_challenge'){ // this is called after a winner is provided
-                        let win = JSON.parse(data['message'])
-                        console.log(win)
-                        if (!win){
+                        if (data['message'] === this.state.name){
                             console.log("NOT WIN")
                             this.props.navigate(`/betchallenge/${this.props.params.name}`);
                         }
-                        else
-                        console.log("WIN")
+
+                    }
+                    if(data['event_type'] === 'bet_win'){
+                        if(data['message'] === this.state.name){
                             this.props.navigate(`/betwin/${this.props.params.name}`);
+                        }
+                            
                     }
                     }
             }

@@ -15,7 +15,7 @@ function BetWin () {
 
     return(
             <div className='bet-win'>
-                Player win the bet.
+                You won the bet!
             </div>
         )
 }

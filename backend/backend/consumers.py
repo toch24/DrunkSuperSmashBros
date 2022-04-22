@@ -191,20 +191,32 @@ class LobbyConsumer(WebsocketConsumer):
 
             for p in self.player:
                 self.bet = p.bet_for
-
+            print("Now printing for ", data[2])
             print("data[3]: "+data[3])
             print("self.bet: "+self.bet)
             if data[3] == self.bet:
                 check=True
 
-            async_to_sync(self.channel_layer.group_send)(
+            if(check):
+                async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                'type':'room_message',
+                'event_type':'bet_win',
+                'message':data[2]
+                }
+            )
+            else:
+                async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
                 {
                 'type':'room_message',
                 'event_type':'bet_challenge',
-                'message':check
+                'message':data[2]
                 }
             )
+
+
 
         if(data[0] == "finish_play"):
             async_to_sync(self.channel_layer.group_send)(
