@@ -38,6 +38,14 @@ $ `$ docker build -t atunbetun/frontend_dock .`
 
 ## Extra Features Implemented
 
+## Issues
+- We were not able to fully deploy the application onto AWS as we are unto some issues.
+- We were able to fully containerize the application onto a docker-compose without compilation errors but the sockets were giving us a hard time.
+- After dockerizing the app we could only use the frontend on http:localhost but it would not connect to the backend as the socket connections were not correctly served.
+- You can run the docker container on the root directory by using `docker-compose -f docker-compose-dev.yml up --build`. It will run on a
+loop echoing "Waiting for db to be ready...". This is done on purpose as we would then ssh into the container to try and manually run the vunicorn server but we had errors.
+- vunicorn command: `gunicorn backend.asgi:application -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000`
+
 ## Separation of Work
 
 **Tommy Chong** 
