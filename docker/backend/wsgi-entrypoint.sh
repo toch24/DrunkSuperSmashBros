@@ -1,18 +1,22 @@
 #!/bin/sh
 
 #https://saasitive.com/tutorial/docker-compose-django-react-nginx-let-s-encrypt/
-#until cd /app/backend/server
-#do
-#    echo "Waiting for server volume..."
-#done
-#
-#until ./manage.py migrate
-#do
-#    echo "Waiting for db to be ready..."
-#    sleep 2
-#done
+until cd /app/backend/server
+do
+    echo "Waiting for server volume..."
+done
 
-./manage.py collectstatic --noinput
+
+until ./manage.py migrate
+do
+    pwd
+    echo "Waiting for db to be ready..."
+    sleep 2
+done
+
+cd ..
+
+python manage.py collectstatic --noinput
 
 gunicorn backend.wsgi --bind 0.0.0.0:8000 --workers 4 --threads 4
 

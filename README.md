@@ -55,5 +55,5 @@ $ `$ docker build -t atunbetun/frontend_dock .`
 **Alberto de Saint Malo** 
 - Set up Google Cloud PostreSQL service and connected it with Django
 - Created Django models to serve the backend in order to handle lobby creation logio, player joining lobbies, challenge storage
-- Worked on Dockerizing the Webapp with Docker containers:
-- 
+- Worked on Dockerizing the Webapp with Docker containers and deploying to AWS:
+  - AWS deploynment not up yet because I could not figure out a way to handle the static files
