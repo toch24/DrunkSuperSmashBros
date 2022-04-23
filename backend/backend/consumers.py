@@ -24,6 +24,7 @@ class LobbyConsumer(WebsocketConsumer):
     def disconnect(self, closing_code):
         if hasattr(self, 'player'):
             self.player.delete()
+        #Host can only end the game for everyone else.
         if hasattr(self, 'room') and self.player.player_name == self.room.room_host:
             async_to_sync(self.channel_layer.group_send)(
                 self.room_group_name,
@@ -92,6 +93,7 @@ class LobbyConsumer(WebsocketConsumer):
             self.room = models.lobbies.objects.get(room_code = data[1])
             self.room_group_name = self.room.room_code
             
+            #Check if another player already has the same name.
             similarNamePlayers = models.players.objects.filter(Q(room_code = self.room) & Q(player_name = data[2]))
             if len(similarNamePlayers) > 0:
                 self.send(text_data=json.dumps({
@@ -121,7 +123,6 @@ class LobbyConsumer(WebsocketConsumer):
                 'type':'room_message',
                 'event_type':'player_joined',
                 'message':json.dumps([player.player_name for player in self.roomPlayers])
-              
                 }
             )
 
@@ -137,8 +138,10 @@ class LobbyConsumer(WebsocketConsumer):
         if(data[0] == "wait_bet"):
             ready = False
             self.room = models.lobbies.objects.get(room_code = data[1])
+            #Set is_playing to false for player, meaning player is betting.
             self.playerToUpdate = models.players.objects.filter(Q(player_name = data[2]) & Q(room_code = self.room)).update(is_playing = False)
 
+            #List of players that haven't yet chosen to bet or join game.
             self.players = list(models.players.objects.filter(Q(is_playing__isnull=True) & Q(room_code = self.room)))
 
             if (len(self.players) == 0):

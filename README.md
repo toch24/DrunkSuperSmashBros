@@ -45,6 +45,9 @@ loop echoing "Waiting for db to be ready...". This is done on purpose as we woul
 - Worked on call to the API to get Smash characters data in the backend to the frontend. Created challenges in the database.
 
 **Justin Mulder** 
+- Researched and set up the websockets and channel layers.
+- Helped with the models used in backend.
+- Worked on making host wait for players to pick characters, host picking the winning player, resetting data after round end, and stopping users from same username.
 
 **Hanyan Zhang (Yuki)** 
 - Worked on part of the lobby design including allowing popups for create lobby and player joining. 
@@ -55,3 +58,40 @@ loop echoing "Waiting for db to be ready...". This is done on purpose as we woul
 - Created Django models to serve the backend in order to handle lobby creation logio, player joining lobbies, challenge storage
 - Worked on Dockerizing the Webapp with Docker containers and deploying to AWS:
   - AWS deploynment not up yet because I could not figure out a way to handle the static files
+
+
+## Python Libraries Used (also found in requirements.txt)
+asgiref==3.5.0
+attrs==21.4.0
+autobahn==22.3.2
+Automat==20.2.0
+certifi==2021.10.8
+cffi==1.15.0
+channels==3.0.4
+charset-normalizer==2.0.12
+constantly==15.1.0
+cryptography==36.0.2
+daphne==3.0.2
+Django==4.0.4
+django-cors-headers==3.11.0
+djangorestframework==3.13.1
+hyperlink==21.0.0
+idna==3.3
+incremental==21.3.0
+psycopg2==2.9.3
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+pycparser==2.21
+pyOpenSSL==22.0.0
+pytz==2022.1
+requests==2.27.1
+service-identity==21.1.0
+six==1.16.0
+sqlparse==0.4.2
+Twisted==22.4.0
+twisted-iocpsupport==1.0.2
+txaio==22.2.1
+typing_extensions==4.2.0
+tzdata==2022.1
+urllib3==1.26.9
+zope.interface==5.4.0
