@@ -29,7 +29,7 @@ $ `$ docker build -t atunbetun/frontend_dock .`
 ## Extra Features Implemented
 
 ## Issues
-- We were not able to fully deploy the application onto AWS as we are unto some issues.
+- We were not able to fully deploy the application onto AWS as we ran unto some issues.
 - We were able to fully containerize the application onto a docker-compose without compilation errors but the sockets were giving us a hard time.
 - After dockerizing the app we could only use the frontend on http:localhost but it would not connect to the backend as the socket connections were not correctly served.
 - You can run the docker container on the root directory by using `docker-compose -f docker-compose-dev.yml up --build`. It will run on a
