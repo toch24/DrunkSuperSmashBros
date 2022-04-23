@@ -4,26 +4,16 @@ A simple drinking game where players can create a lobby and everyone that is pla
 
 ### HOW TO INSTALL AND RUN APP IN LOCAL HOST ###
 FOR THE BACKEND:
-1. cd backend
-2. pip install -r requirements.txt
-3. python manage.py runserver 8080 => This will run the backend server in port 8080 (DO NOT CHANGE PORT)
+1. `cd backend`
+2. `pip install -r requirements.txt`
+3. `python manage.py runserver 8080` => This will run the backend server in port 8080 (DO NOT CHANGE PORT)
 
 FOR THE FRONTEND:
-1. cd frontend
-2. npm install
-3. npm start
+1. `cd frontend`
+2. `npm install`
+3. `npm start`
 
 
-
-
-
-## DOCKER
-https://docs.docker.com/get-docker/
-https://docs.docker.com/compose/
-
-https://blog.devgenius.io/dockerizing-django-application-gunicorn-and-nginx-5a74b250198f
-https://blog.devgenius.io/deploying-django-application-on-aws-ec2-and-docker-10a1f7c29573
-https://medium.com/@gagansh7171/dockerize-your-django-and-react-app-68a7b73ab6e9
 
 ### Creating Images
 #### Backend
